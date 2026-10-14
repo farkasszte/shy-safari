@@ -1,3 +1,15 @@
+<script lang="ts" module>
+  import type { MotionState } from "$lib/scenes/motion";
+  import type { CreatureInstance } from "$lib/session/session.svelte";
+
+  /**
+   * Where each Creature had got to, so one that is drawn afresh — when the
+   * Scene floats out of the tab or comes back — carries on from the same
+   * spot rather than jumping back to where it arrived.
+   */
+  const motions = new WeakMap<CreatureInstance, MotionState>();
+</script>
+
 <script lang="ts">
   /**
    * One Creature living in the Scene.
@@ -26,7 +38,7 @@
     type DepartureStyle,
     type Footprint,
   } from "$lib/scenes/motion";
-  import type { CreatureInstance } from "$lib/session/session.svelte";
+  import { cancelFrame, requestFrame } from "$lib/frames";
 
   let {
     creature,
@@ -104,7 +116,11 @@
   onMount(() => {
     const scene = swimmer.parentElement!;
     const style = creature.def.motion;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // The window the Scene is drawn in, which is not this one while it floats:
+    // an observer belongs to the window that made it, and a hidden tab's
+    // observers never report.
+    const view = swimmer.ownerDocument.defaultView ?? window;
+    const reducedMotion = view.matchMedia("(prefers-reduced-motion: reduce)");
 
     let sceneW = scene.clientWidth;
     let sceneH = scene.clientHeight;
@@ -116,7 +132,7 @@
       aspect: sceneH / sceneW,
     });
 
-    const resize = new ResizeObserver(() => {
+    const resize = new view.ResizeObserver(() => {
       sceneW = scene.clientWidth;
       sceneH = scene.clientHeight;
       selfW = swimmer.offsetWidth;
@@ -127,22 +143,25 @@
 
     const settle = setTimeout(() => (glistening = false), GLISTEN_MS);
 
-    const state = createMotion(
-      style,
-      creature.spawnX,
-      creature.spawnY,
-      creature.depth,
-      footprint(),
-      Math.random,
-      creature.def.flips,
-    );
+    const state =
+      motions.get(creature) ??
+      createMotion(
+        style,
+        creature.spawnX,
+        creature.spawnY,
+        creature.depth,
+        footprint(),
+        Math.random,
+        creature.def.flips,
+      );
+    motions.set(creature, state);
 
     let facing = 0;
     let fleeingTo: -1 | 1 | null = null;
     let startled = STARTLE_S + Math.random() * STARTLE_JITTER_S;
     let fadedFor = 0;
     let last = performance.now();
-    let frame = requestAnimationFrame(function tick(now) {
+    let frame = requestFrame(function tick(now) {
       // Clamp, so a backgrounded tab does not teleport everyone on return.
       const elapsed = Math.min(0.1, (now - last) / 1000);
       let dt = elapsed;
@@ -205,11 +224,11 @@
         flipper.style.transform = `scaleX(${facing})`;
       }
 
-      frame = requestAnimationFrame(tick);
+      frame = requestFrame(tick);
     });
 
     return () => {
-      cancelAnimationFrame(frame);
+      cancelFrame(frame);
       resize.disconnect();
       clearTimeout(settle);
     };

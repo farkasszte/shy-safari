@@ -141,6 +141,17 @@ html[data-scene="space"]:not(:has(.scene-stage)) body {
   --world-left: calc(50cqw - 50 * var(--wu));
 }
 
+/*
+ * The Scene floating in a Picture-in-Picture window, which the teacher can
+ * size to anything from a corner of the slides up. The Scene already scales
+ * itself (`--wu`); this scales what sits over it, which is all sized in rem,
+ * so the Noise Meter and the pause button never crowd a small window or look
+ * lost in a large one.
+ */
+html.floating {
+  font-size: clamp(10px, 1.5vmin + 6px, 16px);
+}
+
 /* Controls over the Scene stay clear of a phone's notch and home bar, which
    viewport-fit=cover (app.html) lets the Scene itself run under. */
 .safe-edges {

@@ -130,6 +130,15 @@ Teaching the app what this particular room and microphone sound like, by
 sampling the room while it is silent and again while it is talking normally.
 Calibration is optional; without it the app uses a sensible default.
 
+## Floating
+
+The Scene shown in a small window of its own that stays on top of the
+teacher's other tabs and windows, say over their slides. Only the Scene, the
+Noise Meter and the arrival counter go with it, and a button to pause; the
+Timer, Notes and every other control wait in the tab. Floating changes
+nothing about the Session: the room is listened to and Creatures arrive and
+Run Away just as before.
+
 ## Timer
 
 A countdown the teacher can put up over the Scene and drag wherever suits

@@ -8,6 +8,7 @@
 import { CHIME_MS, playChime } from "$lib/audio/chime";
 import { Microphone, SMOOTHING_MS } from "$lib/audio/microphone.svelte";
 import { classes } from "$lib/classes/classes.svelte";
+import { cancelFrame, requestFrame } from "$lib/frames";
 import { notes } from "$lib/notes/notes.svelte";
 import { RoomMonitor } from "$lib/noise/roomMonitor.svelte";
 import { SCENES } from "$lib/scenes";
@@ -52,6 +53,11 @@ export class App {
    * and nothing new arrives while the class is listening.
    */
   paused = $state(false);
+  /**
+   * True while the Scene floats over the teacher's other tabs in a
+   * Picture-in-Picture window, leaving this tab hidden.
+   */
+  floating = $state(false);
   timer = new ClassTimer(() => this.#ring());
   session = new Session(
     DEFAULT_SCENE,
@@ -206,12 +212,15 @@ export class App {
           settings.loudResponse === "flee",
         );
       }
-      this.#frame = requestAnimationFrame(step);
+      // The tab is hidden, so its own interval may be held back: keep the
+      // Timer's chime on time from the floating window's frames instead.
+      if (this.floating) this.timer.check();
+      this.#frame = requestFrame(step);
     };
-    this.#frame = requestAnimationFrame(step);
+    this.#frame = requestFrame(step);
 
     return () => {
-      cancelAnimationFrame(this.#frame);
+      cancelFrame(this.#frame);
       stopTimer();
       this.microphone.stop();
     };

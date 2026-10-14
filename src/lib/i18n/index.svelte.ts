@@ -32,6 +32,14 @@ const en = {
     "common.done": "Done",
     "fullScreen.enter": "Full screen",
     "fullScreen.exit": "Exit full screen",
+    "float.open": "Float over other tabs",
+    "float.openHint":
+      "Float the scene in a small window over your slides or other tabs",
+    "float.failed": "The floating window could not be opened.",
+    "floating.title": "Shy Safari is floating",
+    "floating.instructions":
+      "The scene is in its own window over your other tabs, and keeps listening to the room. Keep this tab open: the window's back-to-tab button brings it back here.",
+    "floating.return": "Bring Shy Safari back here",
     "start.shy": "Shh… these animals are shy!",
     "start.explain":
       "If it gets too loud, they stay hidden. When the room is calm again, they'll start coming out.",
@@ -579,6 +587,14 @@ const es = {
     "common.done": "Listo",
     "fullScreen.enter": "Pantalla completa",
     "fullScreen.exit": "Salir de pantalla completa",
+    "float.open": "Flotar sobre otras pestañas",
+    "float.openHint":
+      "Mostrar la escena en una ventana pequeña sobre tus diapositivas u otras pestañas",
+    "float.failed": "No se pudo abrir la ventana flotante.",
+    "floating.title": "Shy Safari está flotando",
+    "floating.instructions":
+      "La escena está en su propia ventana sobre tus otras pestañas y sigue escuchando el aula. Deja esta pestaña abierta: el botón de la ventana para volver a la pestaña la trae de vuelta aquí.",
+    "floating.return": "Traer Shy Safari de vuelta aquí",
     "start.shy": "Shh… ¡estos animales son tímidos!",
     "start.explain":
       "Si hay demasiado ruido, se quedan escondidos. Cuando el aula vuelva a estar tranquila, empezarán a salir.",
@@ -1098,6 +1114,14 @@ const fr = {
     "common.done": "Terminé",
     "fullScreen.enter": "Plein écran",
     "fullScreen.exit": "Quitter le plein écran",
+    "float.open": "Détacher au-dessus des autres onglets",
+    "float.openHint":
+      "Afficher la scène dans une petite fenêtre au-dessus de vos diapositives ou d’autres onglets",
+    "float.failed": "Impossible d’ouvrir la fenêtre flottante.",
+    "floating.title": "Shy Safari est dans une fenêtre flottante",
+    "floating.instructions":
+      "La scène est dans sa propre fenêtre au-dessus de vos autres onglets et continue d’écouter la classe. Gardez cet onglet ouvert : le bouton de retour à l’onglet de la fenêtre la ramène ici.",
+    "floating.return": "Ramener Shy Safari ici",
     "start.shy": "Chut… ces animaux sont timides !",
     "start.explain":
       "S’il y a trop de bruit, ils restent cachés. Quand la classe redevient calme, ils commencent à sortir.",
