@@ -331,7 +331,7 @@
 
     <!-- Top left: who made this, and which Class is on screen. Top right: the
        tools that change how the page looks — the Timer and Notes over the
-       Scene, its language, and whether it fills the screen. Later than the
+       Scene, floating it, and whether it fills the screen. Later than the
        start card so it sits above it; Settings, Animals and the blocked-
        microphone screen cover it. -->
     <div
@@ -428,7 +428,6 @@
             </button>
           {/if}
         {/if}
-        <LanguagePicker />
         {#if canFullScreen}
           <button
             class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
@@ -496,11 +495,11 @@
       </div>
     {/if}
 
-    <!-- Bottom left: help for the teacher, out of the way of the controls
-       above and fading with them, and the arrival counter, if the teacher
-       turned it on in Settings, which stays up in the corner when they fade.
-       On a phone the control bar spans the bottom edge, so during a Session
-       they sit just above the bar. -->
+    <!-- Bottom left: help for the teacher and the page's language, out of
+       the way of the controls above and fading with them, and the arrival
+       counter, if the teacher turned it on in Settings, which stays up in
+       the corner when they fade. On a phone the control bar spans the
+       bottom edge, so during a Session they sit just above the bar. -->
     <div
       class="safe-edges pointer-events-none absolute bottom-0 left-0 z-40 flex gap-2 p-4 {app.listening
         ? 'max-sm:bottom-16'
@@ -510,7 +509,7 @@
         <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
       {/if}
       <div
-        class="pointer-events-auto transition-opacity duration-300"
+        class="pointer-events-auto flex gap-2 transition-opacity duration-300"
         class:opacity-0={!topBarVisible}
         aria-hidden={!topBarVisible}
         inert={!topBarVisible}
@@ -538,6 +537,7 @@
             <path d="M12 17.5h.01" />
           </svg>
         </button>
+        <LanguagePicker />
       </div>
     </div>
 
