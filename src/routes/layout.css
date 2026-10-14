@@ -9,6 +9,15 @@
 /* A phone on its side: too short for the start card at full size. */
 @custom-variant short (@media (max-height: 500px));
 
+/* Tailwind 4 leaves buttons with the plain arrow; give them the hand, so
+   the teacher can see what is clickable. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 /*
  * The Scene palettes. The reef group is the water, sand and coral used by
  * scenes/reef/ambient/ (docs/svg-art-brief.md uses the same values). The
