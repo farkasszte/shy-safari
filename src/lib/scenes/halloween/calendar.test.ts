@@ -11,6 +11,7 @@ import {
   todaysNewcomer,
   unlockDay,
   unlockedSlugs,
+  untilUnlock,
   weekday,
 } from "./calendar";
 
@@ -109,5 +110,23 @@ describe("the Hollow's calendar", () => {
     expect(isDay("2026-02-30")).toBe(false);
     expect(isDay("30/10/2026")).toBe(false);
     expect(isDay("")).toBe(false);
+  });
+
+  it("counts whole days to a Newcomer, then the seconds on the day before", () => {
+    const now = new Date(2026, 9, 18, 9, 0, 0);
+    expect(untilUnlock("2026-10-21", "2026-10-18", now)).toEqual({ days: 3 });
+    expect(untilUnlock("2026-10-20", "2026-10-18", now)).toEqual({ days: 2 });
+    // 9am local to midnight local: fifteen hours.
+    expect(untilUnlock("2026-10-19", "2026-10-18", now)).toEqual({
+      seconds: 15 * 3600,
+    });
+    // A part second rounds up, so it never reads zero before the day turns.
+    expect(
+      untilUnlock(
+        "2026-10-19",
+        "2026-10-18",
+        new Date(2026, 9, 18, 23, 59, 59, 500),
+      ),
+    ).toEqual({ seconds: 1 });
   });
 });

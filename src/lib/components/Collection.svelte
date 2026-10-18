@@ -26,7 +26,7 @@
     unlockDay,
     unlockedSlugs,
   } from "$lib/scenes/halloween/calendar";
-  import { shortDay } from "$lib/scenes/halloween/wording";
+  import { unlocksIn } from "$lib/scenes/halloween/wording";
   import { today } from "$lib/today.svelte";
   import type { RarityTier, SceneId } from "$lib/scenes/types";
   import { TIER_WEIGHTS } from "$lib/session/roll";
@@ -36,7 +36,6 @@
     className,
     creatureFact,
     creatureName,
-    current,
     t,
     tIn,
   } from "$lib/i18n/index.svelte";
@@ -86,11 +85,14 @@
     sceneId === "halloween" ? todaysNewcomer(today.day) : null,
   );
 
-  /** "Comes Tue 27", or, for one already due whose artwork is not in yet, "Coming soon". */
+  /**
+   * "Unlocks in 3 days", counting down by the second on the day before, or,
+   * for one already due whose artwork is not in yet, "Coming soon".
+   */
   function comesOn(slug: string) {
     const day = unlockDay(slug);
-    return day && today.day !== null && day > today.day
-      ? t("collection.comingOn", { day: shortDay(day, current().locale) })
+    return day && today.day !== null && today.now !== null && day > today.day
+      ? unlocksIn(day, today.day, today.now)
       : t("collection.comingSoon");
   }
 
@@ -221,7 +223,8 @@
                     >
                       ?
                     </div>
-                    <span class="mt-1 text-sm font-medium text-slate-500"
+                    <span
+                      class="mt-1 text-sm font-medium text-slate-500 tabular-nums"
                       >{comesOn(def.slug)}</span
                     >
                   </li>

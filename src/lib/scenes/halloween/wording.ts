@@ -5,7 +5,7 @@
 
 import { t, type UiKey } from "$lib/i18n/index.svelte";
 import type { SceneId } from "$lib/scenes/types";
-import { daysLeft, hollowPhase } from "./calendar";
+import { daysLeft, hollowPhase, untilUnlock } from "./calendar";
 
 /** A Scene's hint in a menu, under its name. */
 export function sceneHint(id: SceneId, day: string | null): string {
@@ -26,15 +26,14 @@ export function isLimited(id: SceneId): boolean {
 }
 
 /**
- * A short day, "Tue 27", in the language on screen: the weekday alone would
- * not tell this Tuesday from next.
+ * When a Newcomer unlocks, on its card in the Collection: "Unlocks in 3
+ * days", or, on the day before, a countdown, "Unlocks in 04:12:09".
  */
-export function shortDay(day: string, locale: string): string {
-  const [y, m, d] = day.split("-").map(Number);
-  // Weekday first in every language; Intl alone puts English's day first.
-  const weekday = new Intl.DateTimeFormat(locale, {
-    weekday: "short",
-    timeZone: "UTC",
-  }).format(new Date(Date.UTC(y, m - 1, d)));
-  return `${weekday} ${d}`;
+export function unlocksIn(unlocks: string, day: string, now: Date): string {
+  const left = untilUnlock(unlocks, day, now);
+  if ("days" in left) return t("collection.unlocksInDays", { days: left.days });
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const { seconds } = left;
+  const time = `${pad(Math.floor(seconds / 3600))}:${pad(Math.floor(seconds / 60) % 60)}:${pad(seconds % 60)}`;
+  return t("collection.unlocksIn", { time });
 }

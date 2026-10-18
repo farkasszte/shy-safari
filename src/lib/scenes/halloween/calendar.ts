@@ -116,6 +116,29 @@ export function unlockDay(slug: string): string | null {
 }
 
 /**
+ * How long until a Newcomer unlocks, at midnight at the start of its day:
+ * whole days while it is two or more away, and the seconds left on the day
+ * before. The seconds go by this computer's clock and time zone, as `now`
+ * gives them, so moving the clock or the time zone moves the countdown.
+ */
+export function untilUnlock(
+  unlocks: string,
+  day: string,
+  now: Date,
+): { days: number } | { seconds: number } {
+  const days = daysBetween(day, unlocks);
+  if (days > 1) return { days };
+  const midnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+  );
+  // Rounded up, so it reads 00:00:01 until the day turns, never 00:00:00.
+  const seconds = Math.ceil((midnight.getTime() - now.getTime()) / 1_000);
+  return { seconds: Math.max(0, seconds) };
+}
+
+/**
  * Days the Hollow has left, counting today: 7 on the Sunday after
  * Halloween, 1 on its last day. Only meaningful while counting down.
  */

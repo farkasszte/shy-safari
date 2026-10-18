@@ -5,8 +5,9 @@
  *
  * Unknown (null) until the page is running in a browser: the page is
  * prerendered with no idea of the date, and hydration must find exactly the
- * Scenes it was rendered with. Checked again every minute, so a tab left open
- * overnight moves on to the next day.
+ * Scenes it was rendered with. Checked again every second, so a tab left open
+ * overnight moves on to the next day right at midnight, and the Collection
+ * can count down to the next Newcomer.
  *
  * In development `?today=2026-10-30` pretends it is that day, for walking
  * the calendar without waiting for it.
@@ -14,8 +15,6 @@
 
 import { browser, dev } from "$app/environment";
 import { isDay, localDay } from "$lib/scenes/halloween/calendar";
-
-const CHECK_MS = 60_000;
 
 function override(): string | null {
   if (!dev) return null;
@@ -25,16 +24,23 @@ function override(): string | null {
 
 class Today {
   day = $state<string | null>(null);
-  #interval: ReturnType<typeof setInterval> | undefined;
+  /** The time on this computer's clock, in its own time zone. */
+  now = $state<Date | null>(null);
+  #timeout: ReturnType<typeof setTimeout> | undefined;
 
   /** Start keeping track. Returns a teardown. */
   start() {
     if (!browser) return () => {};
-    const check = () => (this.day = override() ?? localDay(new Date()));
+    const check = () => {
+      const now = new Date();
+      this.now = now;
+      this.day = override() ?? localDay(now);
+      // Just after the next second turns over, so a countdown never skips one.
+      this.#timeout = setTimeout(check, 1_005 - (now.getTime() % 1_000));
+    };
+    clearTimeout(this.#timeout);
     check();
-    clearInterval(this.#interval);
-    this.#interval = setInterval(check, CHECK_MS);
-    return () => clearInterval(this.#interval);
+    return () => clearTimeout(this.#timeout);
   }
 }
 
