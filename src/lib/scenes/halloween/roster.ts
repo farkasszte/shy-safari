@@ -138,6 +138,6 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     width: 360,
     motion: "stride",
     departure: "fade",
-    parts: [],
+    parts: ["part-head", "part-arms", "part-pulse"],
   },
 ];

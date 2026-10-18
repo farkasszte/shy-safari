@@ -28,16 +28,6 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
   halloween: HALLOWEEN_ROSTER,
 };
 
-/**
- * Pumpkin Hollow's Creatures are drawn in waves, each a few days before the
- * calendar unlocks it (`.scratch/halloween/README.md` §7); until then the
- * Scene simply holds it back (`halloween/arrivals.ts`). Strike each one off
- * as it lands: this list ends empty.
- */
-const NOT_DRAWN_YET: Partial<Record<SceneId, string[]>> = {
-  halloween: ["jack-o-lantern"],
-};
-
 /** The Scenes whose art brief (§9, §10) prefixes every id with the Scene. */
 const SHADED_SCENES: SceneId[] = ["space", "prehistoric"];
 
@@ -57,12 +47,10 @@ function svgFiles(sceneId: SceneId, kind: ArtKind) {
 
 const viewBox = (source: string) => source.match(/viewBox="([^"]*)"/)?.[1];
 
-for (const [sceneId, fullRoster] of Object.entries(ROSTERS) as [
+for (const [sceneId, roster] of Object.entries(ROSTERS) as [
   SceneId,
   CreatureDef[],
 ][]) {
-  const waiting = NOT_DRAWN_YET[sceneId] ?? [];
-  const roster = fullRoster.filter((def) => !waiting.includes(def.slug));
   describe(`${sceneId} artwork`, () => {
     it("draws only Roster Creatures listening", () => {
       const slugs = roster.map((def) => def.slug);
