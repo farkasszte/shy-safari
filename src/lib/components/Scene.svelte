@@ -12,6 +12,7 @@
 
   import type { SceneDef } from "$lib/scenes";
   import type { CreatureInstance } from "$lib/session/session.svelte";
+  import { welcomeFor } from "$lib/scenes/welcome";
   import Creature from "./Creature.svelte";
   import HollowSign from "./HollowSign.svelte";
 
@@ -47,6 +48,11 @@
     /** A fleeing Creature has run out of sight, or faded away. */
     ondepart: (id: number) => void;
   } = $props();
+
+  /** One the Scene answers to is here, or has just come. */
+  const welcome = $derived(
+    welcomeFor(scene.welcomes, creatures, newestId, fleeing),
+  );
 </script>
 
 <div
@@ -55,6 +61,7 @@
   data-murky={murky}
   data-frozen={frozen}
   data-scares={scares}
+  data-welcome={welcome}
 >
   <!--
     The whole landscape in one piece of artwork. It sits inside the container

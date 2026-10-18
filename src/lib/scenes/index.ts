@@ -121,6 +121,12 @@ export interface SceneDef {
   isNew?: boolean;
   /** Who may arrive and how they are chosen, if not a roll of the Roster. */
   arrivals?: Arrivals;
+  /**
+   * Creatures, by slug, the Scene itself answers to: while one is here the
+   * stage carries `data-welcome` (`scenes/welcome.ts`), and the Scene's CSS
+   * does the rest. Pumpkin Hollow's patch lights up for Jack O. Lantern.
+   */
+  welcomes?: string[];
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -251,6 +257,9 @@ export const SCENES: Record<SceneId, SceneDef> = {
     openOn: isOpen,
     isNew: true,
     arrivals: { available: availableToday, draw: drawToday },
+    // The finale: every jack-o'-lantern flares and the moon brightens as he
+    // comes, and the patch stays lit warmer while he's here (entrance.css).
+    welcomes: ["jack-o-lantern"],
   },
 };
 
