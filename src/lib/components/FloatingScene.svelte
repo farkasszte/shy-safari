@@ -63,6 +63,7 @@
     newestId={app.session.newestId}
     murky={app.monitor.state === "too-loud"}
     frozen={app.monitor.state === "too-loud"}
+    listening={app.paused}
     scares={settings.loudResponse === "flee"}
     fleeing={app.session.fleeing}
     ondepart={(id) => app.session.depart(id)}

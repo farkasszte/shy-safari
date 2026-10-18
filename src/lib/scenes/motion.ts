@@ -662,6 +662,54 @@ export function stepMotion(
   return state;
 }
 
+/** How quickly a Creature that has stopped to listen comes to rest, per second. */
+const SETTLE_BRAKING = 4;
+
+/**
+ * Advance a Creature that has stopped to listen to the teacher. It finishes
+ * its step and eases to a halt where it is, rather than freezing mid-stride
+ * the way Too Loud stops it. Mutates and returns `state`.
+ */
+export function stepSettle(
+  state: MotionState,
+  style: MotionStyle,
+  depth: number,
+  footprint: Footprint,
+  dt: number,
+): MotionState {
+  const box = bounds(MOTION_PROFILES[style], footprint, depth);
+  state.age += dt;
+  const brake = Math.min(1, dt * SETTLE_BRAKING);
+  state.vx -= state.vx * brake;
+  state.vy -= state.vy * brake;
+  state.x = clamp(state.x + state.vx * dt, box.xMin, box.xMax);
+  state.y = clamp(
+    state.y + (state.vy * dt) / footprint.aspect,
+    box.yMin,
+    box.yMax,
+  );
+  return state;
+}
+
+/**
+ * Seconds a Creature waits, once the teacher pauses, before it turns to
+ * listen. The middle of the Scene turns first and the edges last, so the
+ * whole Scene turns in a ripple rather than all at once.
+ */
+export function listenDelay(state: MotionState): number {
+  return 0.35 + Math.abs(state.x - 0.5) * 1.4;
+}
+
+/**
+ * Which way a listening Creature faces: in towards the middle of the Scene,
+ * so everyone gathers their attention on the same spot. Anything that never
+ * turns round keeps the way it already faces.
+ */
+export function listenFacing(state: MotionState): -1 | 1 {
+  if (!state.flips) return state.facing;
+  return state.x < 0.5 ? 1 : -1;
+}
+
 /** How fast a frightened Creature bolts, in Scene widths per second. */
 export const FLEE_SPEED = 0.3;
 /** How quickly it gets up to that speed, per second. */
