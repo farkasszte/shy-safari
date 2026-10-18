@@ -40,26 +40,33 @@
    * always pumpkin-sized next to a cat. Each is layered by where it meets the
    * ground, so an animal walking the patch passes in front of some and behind
    * the rest.
+   *
+   * The vines and leaves are the backdrop's, so they are always behind every
+   * piece. Each piece therefore sits with its foot on its row's vine, or
+   * lower, so its row's leaves grow up behind it rather than out from under
+   * it; and it stays clear of every leaf in the rows in front, which could
+   * not pass in front of it. The middle bale sits in the straw in a gap in
+   * the middle row, so no leaf reaches it.
    */
   const patch = [
     // Along the back row of the patch.
     { x: 24, base: 25.5, width: 80, art: "pumpkin-cluster" },
     { x: 41, base: 24.5, width: 48, art: "pumpkin-round" },
-    { x: 58, base: 26, width: 44, art: "jack-o-lantern-2" },
+    { x: 58, base: 24.9, width: 44, art: "jack-o-lantern-2" },
     { x: 76, base: 25, width: 40, art: "corn-bundle" },
     { x: 91, base: 25.5, width: 56, art: "pumpkin-squat" },
     // In the straw and along the middle row.
-    { x: 7, base: 20.5, width: 54, art: "pumpkin-warty" },
-    { x: 66, base: 20, width: 80, art: "hay-bale" },
+    { x: 75.5, base: 19.6, width: 80, art: "hay-bale" },
+    { x: 7, base: 15.7, width: 54, art: "pumpkin-warty" },
     { x: 15, base: 16.5, width: 54, art: "jack-o-lantern" },
-    { x: 34, base: 15.5, width: 50, art: "pumpkin-striped" },
+    { x: 34, base: 15, width: 50, art: "pumpkin-striped" },
     { x: 52, base: 17, width: 56, art: "pumpkin-round" },
-    { x: 84, base: 16, width: 100, art: "pumpkin-cluster" },
+    { x: 84, base: 15.3, width: 100, art: "pumpkin-cluster" },
     // The front of the patch, nearest the room.
-    { x: 2, base: 3, width: 100, art: "hay-bale" },
-    { x: 27, base: 6, width: 52, art: "pumpkin-tall" },
+    { x: 11, base: 3, width: 100, art: "hay-bale" },
+    { x: 27, base: 4.5, width: 52, art: "pumpkin-tall" },
     { x: 45, base: 4, width: 62, art: "jack-o-lantern" },
-    { x: 64, base: 7, width: 58, art: "pumpkin-warty" },
+    { x: 64, base: 3.6, width: 58, art: "pumpkin-warty" },
     { x: 80, base: 4, width: 60, art: "jack-o-lantern-2" },
     { x: 95, base: 6.5, width: 64, art: "pumpkin-round" },
   ].map((piece, index) => {
