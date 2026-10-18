@@ -9,6 +9,7 @@
  * again never empties the reef — only Reset does (`savedReef.ts`).
  */
 
+import { MOTION_PROFILES } from "$lib/scenes/motion";
 import type { Arrivals, CreatureDef } from "$lib/scenes/types";
 import {
   advanceArrivalClock,
@@ -240,11 +241,17 @@ export class Session {
     sightings.record(this.#sceneId, def.slug);
   }
 
+  /** Anywhere from far to near, unless its motion keeps it to some depths. */
+  #depth(def: CreatureDef): number {
+    const [min, max] = MOTION_PROFILES[def.motion].depths ?? [0, 1];
+    return min + this.#random() * (max - min);
+  }
+
   #place(def: CreatureDef): CreatureInstance {
     return {
       id: this.#nextId++,
       def,
-      depth: this.#random(),
+      depth: this.#depth(def),
       spawnX: this.#random(),
       spawnY: this.#random(),
     };

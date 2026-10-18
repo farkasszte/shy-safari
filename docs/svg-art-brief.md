@@ -545,8 +545,9 @@ the Arctic's are. What it adds:
   the scenery reads as an eye. Glows are translucent shapes layered on each
   other, never a blur or a filter, and nothing flashes.
 - **The night is never black.** The sky runs from indigo overhead to plum,
-  with amber where the sun has just set. Black animals (the cat, the bat,
-  the crow) are a purple-charcoal, `#3d3550`, never `#000`. Each has a pale
+  with amber where the sun has just set. Black animals (the cat and
+  the crow) are a purple-charcoal, `#3d3550`, never `#000`. (The bat is
+  a warm, light brown instead, so it shows against the sky and the oak.) Each has a pale
   lavender moon rim (`#c9b8e8` at about 0.6) along the top edge of
   its back, head, ears and tail, and its eyes are gold `#ffd166` inside a
   lavender ring round the dark signature pupil and its glint, so they never

@@ -114,6 +114,12 @@ export interface MotionProfile {
    * from a branch: the top of its box is on the line, not the bottom.
    */
   hangs?: boolean;
+  /**
+   * The depths it may arrive at, if not anywhere from far to near. A giant
+   * keeps near the front of its lane, so it never shrinks below the animals
+   * walking in front of it.
+   */
+  depths?: [number, number];
 }
 
 /** The sand in backdrop.svg, as fractions of Scene height. */
@@ -447,6 +453,7 @@ export const MOTION_PROFILES: Record<MotionStyle, MotionProfile> = {
     tilts: false,
     ground: true,
     band: PATCH_BACK,
+    depths: [0.85, 1],
   },
 };
 

@@ -36,15 +36,6 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
  */
 const NOT_DRAWN_YET: Partial<Record<SceneId, string[]>> = {
   halloween: [
-    "harvest-mouse",
-    "garden-spider",
-    "toad",
-    "brown-bat",
-    "crow",
-    "barn-owl",
-    "peekaboo-moon",
-    "gourdling",
-    "scarecrow",
     "mummy",
     "vampire",
     "gargoyle",
