@@ -4,8 +4,8 @@
  *
  * A hillside pumpkin patch on Halloween eve. It opens with seven real animals
  * people link with Halloween, then a Newcomer every school day, each a little
- * more exciting than the last: magical critters in the first week, the big
- * friendly monsters in the second, and the giant Jack O. Lantern on the last
+ * more exciting than the last: Uncommon magical critters in the first week, Rare
+ * big friendly monsters in the second, and the giant Jack O. Lantern on the last
  * school day before Halloween. Spooky-cute, never scary.
  *
  * Slugs match the SVG filenames in `./creatures/`, and are unique across every
@@ -17,7 +17,7 @@
 import type { CreatureDef } from "$lib/scenes/types";
 
 export const HALLOWEEN_ROSTER: CreatureDef[] = [
-  // Common: the opening seven, and Monday's little ghost.
+  // Common: the opening seven.
   {
     slug: "harvest-mouse",
     tier: "common",
@@ -61,16 +61,16 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
+
+  // Uncommon: the first week's Newcomers.
   {
     slug: "little-ghost",
-    tier: "common",
+    tier: "uncommon",
     width: 54,
     motion: "hover",
     departure: "fade",
     parts: ["part-body"],
   },
-
-  // Uncommon: the first week's magic, and Monday's vampire.
   {
     slug: "cloudy-moon",
     tier: "uncommon",
@@ -100,15 +100,15 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     motion: "creep",
     parts: ["part-arms", "part-tail"],
   },
+
+  // Rare: the second week's, one each per Session at most.
   {
     slug: "vampire",
-    tier: "uncommon",
+    tier: "rare",
     width: 80,
     motion: "trot",
     parts: ["part-wings"],
   },
-
-  // Rare: the big ones, one each per Session at most.
   {
     slug: "gargoyle",
     tier: "rare",
