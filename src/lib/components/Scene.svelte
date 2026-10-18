@@ -20,6 +20,7 @@
     newestId,
     murky,
     frozen,
+    listening,
     scares,
     fleeing,
     ondepart,
@@ -30,6 +31,11 @@
     murky: boolean;
     /** Too Loud: everyone holds still, except any Creature running away. */
     frozen: boolean;
+    /**
+     * Paused: the teacher is talking, so every Creature stops and turns to
+     * listen, modelling what the class should be doing.
+     */
+    listening: boolean;
     /**
      * The teacher chose "animals run away". The haze is then only a hint:
      * everyone freezing and bolting is the signal, and must stay sharp.
@@ -70,10 +76,13 @@
     <Creature
       {creature}
       art={scene.creatureArt[creature.def.slug]}
+      listeningArt={scene.listeningArt[creature.def.slug]}
       depthFade={scene.depthFade}
       departure={scene.departure}
+      whilePaused={scene.whilePaused}
       isNewest={creature.id === newestId}
       {frozen}
+      {listening}
       fleeing={fleeing.includes(creature.id)}
       ongone={() => ondepart(creature.id)}
     />

@@ -33,8 +33,11 @@
     creatureLayer,
     fadeVisibility,
     fleeDirection,
+    listenDelay,
+    listenFacing,
     stepFlee,
     stepMotion,
+    stepSettle,
     type DepartureStyle,
     type Footprint,
   } from "$lib/scenes/motion";
@@ -43,21 +46,33 @@
   let {
     creature,
     art,
+    listeningArt,
     depthFade,
     departure,
+    whilePaused,
     isNewest,
     frozen,
+    listening,
     fleeing,
     ongone,
   }: {
     creature: CreatureInstance;
     art: string;
+    /** The same Creature facing out of the screen, if it has been drawn. */
+    listeningArt: string | undefined;
     depthFade: boolean;
     /** How it leaves once scared off: see `fleeing`. */
     departure: DepartureStyle;
+    /** Paused: turn to listen, or just hold still (see `SceneDef`). */
+    whilePaused: "listen" | "hold";
     isNewest: boolean;
     /** Too Loud: hold perfectly still until the room settles. */
     frozen: boolean;
+    /**
+     * Paused, so the teacher is talking: come to a calm stop, then turn to
+     * listen. Unlike `frozen`, which holds a scared animal mid-stride.
+     */
+    listening: boolean;
     /**
      * Scared off. Running away is a startled "!", then a bolt for the nearer
      * edge; fading is breaking up into static where it stands.
@@ -101,6 +116,15 @@
   // Only the value it mounts with matters: the timer below takes it from there.
   // svelte-ignore state_referenced_locally
   let glistening = $state(!creature.restored);
+
+  /**
+   * Has turned to listen. Each Creature turns a moment after the pause, the
+   * middle of the Scene first (`listenDelay`), so it ripples across the Scene.
+   */
+  let attending = $state(false);
+  /** The little perk-up as it turns, and the shake-off when talking ends. */
+  let turning = $state(false);
+  let shaking = $state(false);
 
   let swimmer: HTMLDivElement;
   let banker: HTMLDivElement;
@@ -156,6 +180,15 @@
       );
     motions.set(creature, state);
 
+    // Already Paused when drawn, as when the Scene floats out mid-announcement:
+    // it was listening before, so it carries on without turning again.
+    if (listening && !fleeing && whilePaused === "listen") {
+      attending = true;
+      state.facing = listenFacing(state);
+    }
+
+    /** Seconds until it turns to listen, once Paused. */
+    let listenIn: number | null = null;
     let facing = 0;
     let fleeingTo: -1 | 1 | null = null;
     let startled = STARTLE_S + Math.random() * STARTLE_JITTER_S;
@@ -197,7 +230,28 @@
           ongone();
           return;
         }
+      } else if (listening) {
+        stepSettle(state, style, creature.depth, footprint(), dt);
+        if (!attending && whilePaused === "listen") {
+          // Real time, like fading: reduced motion should not keep a Creature
+          // looking away for five times as long.
+          listenIn ??= listenDelay(state);
+          listenIn -= elapsed;
+          if (listenIn <= 0) {
+            attending = true;
+            turning = true;
+            state.facing = listenFacing(state);
+          }
+        }
       } else {
+        listenIn = null;
+        if (attending) {
+          // Talking is over: a shake, a moment to gather itself, and off it
+          // goes, not all at once.
+          attending = false;
+          shaking = true;
+          state.resting = 0.4 + Math.random() * 1.4;
+        }
         stepMotion(state, style, creature.depth, footprint(), dt, Math.random);
       }
 
@@ -240,6 +294,8 @@
   class="swimmer pointer-events-none absolute top-0 left-0"
   class:fleeing
   class:fading
+  data-listening={attending}
+  data-holding={listening && whilePaused === "hold" && !fleeing}
   style="
     width:calc({width} * var(--wu));
     z-index:{creatureLayer(profile, creature.depth)};
@@ -266,21 +322,34 @@
         minutes later. Sharing an element would have left leftward swimmers
         going tail-first.
       -->
-      <div bind:this={flipper} class="flipper">
-        <div
-          class="creature"
-          class:arriving={isNewest}
-          class:settled={!glistening}
-          data-tier={creature.def.tier}
-        >
-          {#if isNewest}
-            <!-- The payoff moment has to carry across a classroom. -->
-            <span
-              class="arrival-ring absolute inset-0 rounded-full border-2 border-white/70"
-            ></span>
-          {/if}
-          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-          {@html art}
+      <!-- Its own element too, for the same reason: the perk-up and the
+           shake-off animate `transform`. -->
+      <div
+        class="poser"
+        class:turning
+        class:shaking
+        onanimationend={(event) => {
+          if (event.target !== event.currentTarget) return;
+          turning = false;
+          shaking = false;
+        }}
+      >
+        <div bind:this={flipper} class="flipper">
+          <div
+            class="creature"
+            class:arriving={isNewest}
+            class:settled={!glistening}
+            data-tier={creature.def.tier}
+          >
+            {#if isNewest}
+              <!-- The payoff moment has to carry across a classroom. -->
+              <span
+                class="arrival-ring absolute inset-0 rounded-full border-2 border-white/70"
+              ></span>
+            {/if}
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+            {@html attending && listeningArt ? listeningArt : art}
+          </div>
         </div>
       </div>
       {#if creature.def.tier === "rare" && glistening}

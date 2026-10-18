@@ -116,7 +116,9 @@ and when, is the same in every Scene.
 
 The teacher has stopped the app listening for a while, say to make an
 announcement. Nothing is judged while Paused: no Creature Runs Away, none
-arrives, and the Scene stays clear. Not to be confused with choosing to pause
+arrives, and the Scene stays clear. The Creatures **listen**: each comes to a
+calm stop and turns to face the class, modelling what the class should be
+doing, then shakes itself off and wanders again when the teacher resumes. Not to be confused with choosing to pause
 the Scene when it is Too Loud, which is about how the Scene reacts to noise.
 
 ## Volume Goal

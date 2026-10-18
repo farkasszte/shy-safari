@@ -77,6 +77,11 @@ export interface SceneDef {
   icon: string;
   roster: CreatureDef[];
   creatureArt: Record<string, string>;
+  /**
+   * Creatures facing out of the screen, to swap in while Paused so the class
+   * sees them listening too. Keyed by slug, and only for those drawn so far.
+   */
+  listeningArt: Record<string, string>;
   ambientArt: Record<string, string>;
   Ambient: Component;
   /**
@@ -91,6 +96,12 @@ export interface SceneDef {
    * leaves, and when, is the Session's, and the same in every Scene.
    */
   departure: DepartureStyle;
+  /**
+   * What Creatures do while Paused. Animals `listen`: they stop and turn to
+   * face the class. What a telescope picks up has no face to turn, so in deep
+   * space it just `hold`s still where it is, without Too Loud's haze.
+   */
+  whilePaused: "listen" | "hold";
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -99,6 +110,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     icon: savannaIcon,
     roster: SAVANNA_ROSTER,
     creatureArt: savannaArt.CREATURE_ART,
+    listeningArt: savannaArt.LISTENING_ART,
     ambientArt: savannaArt.AMBIENT_ART,
     Ambient: SavannaAmbient,
     depthFade: false,
@@ -112,12 +124,14 @@ export const SCENES: Record<SceneId, SceneDef> = {
       home: { x: 0.3, y: 0.1, width: 0.4, height: 0.3 },
     },
     departure: "run",
+    whilePaused: "listen",
   },
   reef: {
     id: "reef",
     icon: reefIcon,
     roster: REEF_ROSTER,
     creatureArt: reefArt.CREATURE_ART,
+    listeningArt: reefArt.LISTENING_ART,
     ambientArt: reefArt.AMBIENT_ART,
     Ambient: ReefAmbient,
     depthFade: true,
@@ -131,18 +145,22 @@ export const SCENES: Record<SceneId, SceneDef> = {
       home: { x: 0.3, y: 0.14, width: 0.4, height: 0.3 },
     },
     departure: "run",
+    whilePaused: "listen",
   },
   space: {
     id: "space",
     icon: spaceIcon,
     roster: SPACE_ROSTER,
     creatureArt: spaceArt.CREATURE_ART,
+    // Nothing in deep space has a face to turn: it just comes to rest.
+    listeningArt: {},
     ambientArt: spaceArt.AMBIENT_ART,
     Ambient: SpaceAmbient,
     // Nothing out here is seen through water, and a planet the stars showed
     // through would look like a hologram.
     depthFade: false,
     departure: "fade",
+    whilePaused: "hold",
     note: SPACE_NOTE,
   },
   prehistoric: {
@@ -150,10 +168,12 @@ export const SCENES: Record<SceneId, SceneDef> = {
     icon: prehistoricIcon,
     roster: PREHISTORIC_ROSTER,
     creatureArt: prehistoricArt.CREATURE_ART,
+    listeningArt: prehistoricArt.LISTENING_ART,
     ambientArt: prehistoricArt.AMBIENT_ART,
     Ambient: PrehistoricAmbient,
     depthFade: false,
     departure: "run",
+    whilePaused: "listen",
     note: PREHISTORIC_NOTE,
   },
   forest: {
@@ -161,10 +181,12 @@ export const SCENES: Record<SceneId, SceneDef> = {
     icon: forestIcon,
     roster: FOREST_ROSTER,
     creatureArt: forestArt.CREATURE_ART,
+    listeningArt: forestArt.LISTENING_ART,
     ambientArt: forestArt.AMBIENT_ART,
     Ambient: ForestAmbient,
     depthFade: false,
     departure: "run",
+    whilePaused: "listen",
     note: FOREST_NOTE,
   },
   jungle: {
@@ -172,10 +194,12 @@ export const SCENES: Record<SceneId, SceneDef> = {
     icon: jungleIcon,
     roster: JUNGLE_ROSTER,
     creatureArt: jungleArt.CREATURE_ART,
+    listeningArt: jungleArt.LISTENING_ART,
     ambientArt: jungleArt.AMBIENT_ART,
     Ambient: JungleAmbient,
     depthFade: false,
     departure: "run",
+    whilePaused: "listen",
     note: JUNGLE_NOTE,
   },
   arctic: {
@@ -183,11 +207,13 @@ export const SCENES: Record<SceneId, SceneDef> = {
     icon: arcticIcon,
     roster: ARCTIC_ROSTER,
     creatureArt: arcticArt.CREATURE_ART,
+    listeningArt: arcticArt.LISTENING_ART,
     ambientArt: arcticArt.AMBIENT_ART,
     Ambient: ArcticAmbient,
     // Open air over the ice, as on the savanna.
     depthFade: false,
     departure: "run",
+    whilePaused: "listen",
     note: ARCTIC_NOTE,
   },
 };
