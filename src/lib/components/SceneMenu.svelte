@@ -58,18 +58,18 @@
         >
           <img src={scene.icon} alt="" class="size-9 shrink-0" />
           <span class="min-w-0 flex-1">
-            <span class="flex items-center gap-1.5">
+            <span class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
               <span class:font-semibold={current}
                 >{t(`scene.${scene.id}.name` as UiKey)}</span
               >
               {#if isLimited(scene.id)}
                 <span
-                  class="rounded-full bg-orange-100 px-1.5 py-px text-[0.65rem] font-semibold tracking-wide text-orange-800 uppercase"
+                  class="inline-flex h-[1.125rem] shrink-0 items-center rounded-full bg-orange-100 px-2 pt-px text-[0.625rem] leading-none font-semibold tracking-wide whitespace-nowrap text-orange-800 uppercase"
                   >{t("hollow.limited")}</span
                 >
               {:else if fresh.includes(scene.id)}
                 <span
-                  class="rounded-full bg-sky-100 px-1.5 py-px text-[0.65rem] font-semibold tracking-wide text-sky-800 uppercase"
+                  class="inline-flex h-[1.125rem] shrink-0 items-center rounded-full bg-sky-100 px-2 pt-px text-[0.625rem] leading-none font-semibold tracking-wide whitespace-nowrap text-sky-800 uppercase"
                   >{t("scene.new")}</span
                 >
               {/if}
