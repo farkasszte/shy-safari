@@ -13,6 +13,7 @@
   import type { SceneDef } from "$lib/scenes";
   import type { CreatureInstance } from "$lib/session/session.svelte";
   import Creature from "./Creature.svelte";
+  import HollowSign from "./HollowSign.svelte";
 
   let {
     scene,
@@ -71,13 +72,17 @@
       {creature}
       art={scene.creatureArt[creature.def.slug]}
       depthFade={scene.depthFade}
-      departure={scene.departure}
+      departure={creature.def.departure ?? scene.departure}
       isNewest={creature.id === newestId}
       {frozen}
       fleeing={fleeing.includes(creature.id)}
       ongone={() => ondepart(creature.id)}
     />
   {/each}
+
+  {#if scene.id === "halloween"}
+    <HollowSign />
+  {/if}
 
   <!-- One veil over the whole Scene, never a per-Creature effect. -->
   <div class="too-loud-veil pointer-events-none absolute inset-0"></div>

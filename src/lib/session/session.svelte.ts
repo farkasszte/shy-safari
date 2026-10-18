@@ -9,7 +9,7 @@
  * again never empties the reef — only Reset does (`savedReef.ts`).
  */
 
-import type { CreatureDef } from "$lib/scenes/types";
+import type { Arrivals, CreatureDef } from "$lib/scenes/types";
 import {
   advanceArrivalClock,
   createArrivalClock,
@@ -65,6 +65,7 @@ export class Session {
   #nextId = 1;
   #random: () => number;
   #roster: CreatureDef[];
+  #arrivals: Arrivals | undefined;
   #sceneId: string;
 
   constructor(
@@ -72,9 +73,11 @@ export class Session {
     roster: CreatureDef[],
     intervalMs: number,
     random: () => number = Math.random,
+    arrivals?: Arrivals,
   ) {
     this.#sceneId = sceneId;
     this.#roster = roster;
+    this.#arrivals = arrivals;
     this.#random = random;
     this.#clock = createArrivalClock(intervalMs, random);
   }
@@ -100,9 +103,10 @@ export class Session {
    * earned. The arrival clock carries on: progress towards the next Creature
    * was earned by the room, not by the Scene.
    */
-  useScene(sceneId: string, roster: CreatureDef[]) {
+  useScene(sceneId: string, roster: CreatureDef[], arrivals?: Arrivals) {
     this.#sceneId = sceneId;
     this.#roster = roster;
+    this.#arrivals = arrivals;
     this.restore();
   }
 
@@ -180,7 +184,7 @@ export class Session {
    */
   summonAll() {
     const present = this.creatures.map((creature) => creature.def.slug);
-    const defs = this.#roster.filter(
+    const defs = this.#available().filter(
       (def) => def.tier !== "rare" || !present.includes(def.slug),
     );
     const added = defs.map((def) => this.#place(def));
@@ -214,9 +218,17 @@ export class Session {
     );
   }
 
+  /** Who can arrive now: the whole Roster, unless the Scene says otherwise. */
+  #available(): CreatureDef[] {
+    return this.#arrivals?.available(this.#roster) ?? this.#roster;
+  }
+
   #arrive() {
     const present = this.creatures.map((creature) => creature.def.slug);
-    const def = rollCreature(this.#roster, present, this.#random);
+    const available = this.#available();
+    const def = this.#arrivals
+      ? this.#arrivals.draw(available, present, this.#random)
+      : rollCreature(available, present, this.#random);
     if (!def) return;
 
     const instance = this.#place(def);

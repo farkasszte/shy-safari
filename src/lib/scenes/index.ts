@@ -19,6 +19,13 @@ import arcticIcon from "./arctic/icon.svg";
 import { ARCTIC_NOTE } from "./arctic/note";
 import { ARCTIC_ROSTER } from "./arctic/roster";
 import ForestAmbient from "./forest/AmbientLife.svelte";
+import { availableToday, drawToday } from "./halloween/arrivals";
+import HalloweenAmbient from "./halloween/AmbientLife.svelte";
+import * as halloweenArt from "./halloween/artwork";
+import { isOpen } from "./halloween/calendar";
+import halloweenIcon from "./halloween/icon.svg";
+import { HALLOWEEN_NOTE } from "./halloween/note";
+import { HALLOWEEN_ROSTER } from "./halloween/roster";
 import * as forestArt from "./forest/artwork";
 import forestIcon from "./forest/icon.svg";
 import { FOREST_NOTE } from "./forest/note";
@@ -49,7 +56,7 @@ import * as spaceArt from "./space/artwork";
 import spaceIcon from "./space/icon.svg";
 import { SPACE_NOTE } from "./space/note";
 import { SPACE_ROSTER } from "./space/roster";
-import type { CreatureDef, SceneId } from "./types";
+import type { Arrivals, CreatureDef, SceneId } from "./types";
 
 export type { SceneId };
 
@@ -91,6 +98,18 @@ export interface SceneDef {
    * leaves, and when, is the Session's, and the same in every Scene.
    */
   departure: DepartureStyle;
+  /**
+   * Only on offer on some days, given as a local `YYYY-MM-DD` or null while
+   * the date is not yet known. Left out, a Scene is always on offer.
+   */
+  openOn?: (day: string | null) => boolean;
+  /**
+   * Flagged as new on the buttons that open the Scene menus, until the
+   * teacher has opened one with this Scene in it (`newScenes.svelte.ts`).
+   */
+  isNew?: boolean;
+  /** Who may arrive and how they are chosen, if not a roll of the Roster. */
+  arrivals?: Arrivals;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -190,4 +209,39 @@ export const SCENES: Record<SceneId, SceneDef> = {
     departure: "run",
     note: ARCTIC_NOTE,
   },
+  halloween: {
+    id: "halloween",
+    icon: halloweenIcon,
+    roster: HALLOWEEN_ROSTER,
+    creatureArt: halloweenArt.CREATURE_ART,
+    ambientArt: halloweenArt.AMBIENT_ART,
+    Ambient: HalloweenAmbient,
+    depthFade: false,
+    // The animals run; the ghosts fade away (`CreatureDef.departure`).
+    departure: "run",
+    note: HALLOWEEN_NOTE,
+    openOn: isOpen,
+    isNew: true,
+    arrivals: { available: availableToday, draw: drawToday },
+  },
 };
+
+/** Whether a Scene is on offer on a given day (null: not known yet). */
+export function isAvailable(id: SceneId, day: string | null): boolean {
+  return SCENES[id].openOn?.(day) ?? true;
+}
+
+/**
+ * The Scenes on offer on a given day, for every menu that lists them. Those
+ * only on offer for a while come first, so they are not missed while they
+ * last.
+ */
+export function availableScenes(day: string | null): SceneDef[] {
+  const scenes = Object.values(SCENES).filter((scene) =>
+    isAvailable(scene.id, day),
+  );
+  return [
+    ...scenes.filter((scene) => scene.openOn),
+    ...scenes.filter((scene) => !scene.openOn),
+  ];
+}

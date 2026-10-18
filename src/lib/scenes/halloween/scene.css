@@ -1,0 +1,130 @@
+/* Pumpkin Hollow's own styles: its Ambient Life, and later its Too Loud
+   wind. Its Creatures are drawn in the savanna's style and move their parts
+   with the shared keyframes (routes/layout.css, scenes/savanna/creatures.css).
+   Every class and keyframe here is prefixed `halloween-`, so nothing leaks
+   into another Scene. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+/* The moon's glow breathes, slowly: this is up on a projector all day. */
+@keyframes halloween-moon-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+}
+
+.halloween-moon-glow,
+.halloween-moon {
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+
+.halloween-moon-glow {
+  animation: halloween-moon-breathe 9s ease-in-out infinite;
+}
+
+.halloween-moon-glow > svg,
+.halloween-moon > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halloween-moon-glow {
+    animation: none;
+  }
+}
+
+/* The patch: pumpkins, jack-o'-lanterns, corn and hay, placed by their
+   centre and their foot (halloween/AmbientLife.svelte). Solid, not faded, so
+   no piece shows through another. */
+.halloween-piece {
+  transform: translateX(-50%);
+}
+
+.halloween-piece > svg,
+.halloween-lantern-glow > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The glow round a jack-o'-lantern, to the lantern's own scale: its centre
+   over the lantern's, its pool of light on the ground at the lantern's foot.
+   Both viewBoxes are in the same units, so these follow from them: the
+   lantern's is 96.5 by 88 with its foot at the bottom, the glow's 220 by 159
+   with the ground 45.5 above its bottom. Re-derive them if either changes. */
+.halloween-lantern-glow {
+  position: absolute;
+  left: -63.7%;
+  bottom: -51.7%;
+  width: 228%;
+}
+
+/* A candle's gentle flicker: small, slow and irregular, never a flash. Well
+   under three changes a second, for the projector and for photosensitive
+   students. */
+@keyframes halloween-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0.88;
+  }
+  34% {
+    opacity: 0.97;
+  }
+  52% {
+    opacity: 0.86;
+  }
+  71% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 0.9;
+  }
+}
+
+.halloween-lantern .halloween-lantern-glow,
+.halloween-lantern .halloween-lantern-light {
+  animation: halloween-flicker var(--halloween-beat, 4.6s) ease-in-out
+    var(--halloween-delay, 0s) infinite;
+}
+
+/* The light inside runs a little behind its glow, so the two never pulse as
+   one block. */
+.halloween-lantern .halloween-lantern-light {
+  animation-delay: calc(var(--halloween-delay, 0s) - 0.7s);
+}
+
+/* Dry corn stirring in the night air, about its foot. */
+@keyframes halloween-corn-sway {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(1.5deg);
+  }
+}
+
+.halloween-corn {
+  transform-origin: 50% 100%;
+  animation: halloween-corn-sway 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halloween-lantern .halloween-lantern-glow,
+  .halloween-lantern .halloween-lantern-light,
+  .halloween-corn {
+    animation: none;
+  }
+}

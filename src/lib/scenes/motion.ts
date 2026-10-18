@@ -56,7 +56,12 @@ export type MotionStyle =
    * Arctic: swims along the open water between the ice, surfaced, with long
    * rests. Drawn from the waterline up, so its feet are the waterline.
    */
-  | "paddle";
+  | "paddle"
+  /**
+   * Pumpkin Hollow: a giant's slow walk along the back of the patch, with
+   * long stops to look about, so it towers over the pumpkins in front.
+   */
+  | "stride";
 
 interface Region {
   xMin: number;
@@ -134,6 +139,12 @@ const BOUGH_UNDERSIDE = { top: 0.546, bottom: 0.556 };
  * backdrop, as fractions of Scene height: where a swimmer's waterline runs.
  */
 const OPEN_WATER = { top: 0.54, bottom: 0.598 };
+
+/**
+ * The back of the pumpkin patch in the Pumpkin Hollow backdrop, as fractions
+ * of Scene height: where a giant walks, behind everything nearer.
+ */
+const PATCH_BACK = { top: 0.6, bottom: 0.64 };
 
 /** Open sky, all the way down to the planet's limb at the bottom. */
 const SKY: Region = { xMin: 0.05, xMax: 0.95, yMin: 0.06, yMax: 0.86 };
@@ -422,6 +433,20 @@ export const MOTION_PROFILES: Record<MotionStyle, MotionProfile> = {
     // walker keeps to the ground.
     ground: true,
     band: OPEN_WATER,
+  },
+  stride: {
+    region: { xMin: 0.04, xMax: 0.96, yMin: 0, yMax: 1 },
+    speed: 0.007,
+    agility: 1,
+    reachX: 0.35,
+    reachY: 0,
+    restChance: 0.7,
+    rest: [6, 14],
+    pulse: 0,
+    flips: true,
+    tilts: false,
+    ground: true,
+    band: PATCH_BACK,
   },
 };
 

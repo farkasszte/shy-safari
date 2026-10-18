@@ -11,12 +11,13 @@ import { classes } from "$lib/classes/classes.svelte";
 import { cancelFrame, requestFrame } from "$lib/frames";
 import { notes } from "$lib/notes/notes.svelte";
 import { RoomMonitor } from "$lib/noise/roomMonitor.svelte";
-import { SCENES } from "$lib/scenes";
+import { isAvailable, SCENES } from "$lib/scenes";
 import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
+import { today } from "$lib/today.svelte";
 import { untrack } from "svelte";
 
 /**
@@ -82,7 +83,7 @@ export class App {
   useScene(id: SceneId) {
     settings.scene = id;
     this.#sceneId = id;
-    this.session.useScene(id, SCENES[id].roster);
+    this.session.useScene(id, SCENES[id].roster, SCENES[id].arrivals);
   }
 
   /**
@@ -182,7 +183,14 @@ export class App {
     // Untracked so the page's $effect never re-runs (and tears down the
     // microphone) because of anything restoring touched. Switching to the
     // saved Scene also brings back the animals it had.
-    untrack(() => this.useScene(settings.scene));
+    const stopToday = untrack(() => today.start());
+    // A Scene that is only on offer some of the year, saved while it was,
+    // gives way to the default once it has gone.
+    untrack(() =>
+      this.useScene(
+        isAvailable(settings.scene, today.day) ? settings.scene : DEFAULT_SCENE,
+      ),
+    );
     const stopTimer = untrack(() => this.timer.run());
     this.restored = true;
     this.#lastTick = performance.now();
@@ -222,6 +230,7 @@ export class App {
     return () => {
       cancelFrame(this.#frame);
       stopTimer();
+      stopToday();
       this.microphone.stop();
     };
   }

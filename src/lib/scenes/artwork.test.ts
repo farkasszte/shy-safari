@@ -9,6 +9,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { ARCTIC_ROSTER } from "./arctic/roster";
 import { FOREST_ROSTER } from "./forest/roster";
+import { HALLOWEEN_ROSTER } from "./halloween/roster";
 import { JUNGLE_ROSTER } from "./jungle/roster";
 import { PREHISTORIC_ROSTER } from "./prehistoric/roster";
 import { REEF_ROSTER } from "./reef/roster";
@@ -24,6 +25,33 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
   forest: FOREST_ROSTER,
   jungle: JUNGLE_ROSTER,
   arctic: ARCTIC_ROSTER,
+  halloween: HALLOWEEN_ROSTER,
+};
+
+/**
+ * Pumpkin Hollow's Creatures are drawn in waves, each a few days before the
+ * calendar unlocks it (`.scratch/halloween/README.md` §7); until then the
+ * Scene simply holds it back (`halloween/arrivals.ts`). Strike each one off
+ * as it lands: this list ends empty.
+ */
+const NOT_DRAWN_YET: Partial<Record<SceneId, string[]>> = {
+  halloween: [
+    "harvest-mouse",
+    "garden-spider",
+    "toad",
+    "brown-bat",
+    "crow",
+    "barn-owl",
+    "peekaboo-moon",
+    "gourdling",
+    "scarecrow",
+    "mummy",
+    "vampire",
+    "gargoyle",
+    "werewolf",
+    "great-boo",
+    "jack-o-lantern",
+  ],
 };
 
 /** The Scenes whose art brief (§9, §10) prefixes every id with the Scene. */
@@ -39,10 +67,12 @@ function svgFiles(sceneId: SceneId, kind: "creatures" | "ambient") {
   );
 }
 
-for (const [sceneId, roster] of Object.entries(ROSTERS) as [
+for (const [sceneId, fullRoster] of Object.entries(ROSTERS) as [
   SceneId,
   CreatureDef[],
 ][]) {
+  const waiting = NOT_DRAWN_YET[sceneId] ?? [];
+  const roster = fullRoster.filter((def) => !waiting.includes(def.slug));
   describe(`${sceneId} artwork`, () => {
     it("has exactly one file per Roster entry", () => {
       const files = svgFiles(sceneId, "creatures").map((file) =>
