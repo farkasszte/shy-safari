@@ -460,7 +460,7 @@ const en = {
     "barn-owl": "Barn owl",
     "black-cat": "Black cat",
     "little-ghost": "Little ghost",
-    "peekaboo-moon": "Peekaboo moon",
+    "cloudy-moon": "Cloudy moon",
     gourdling: "Gourdling",
     scarecrow: "Scarecrow",
     mummy: "Mummy",
@@ -552,7 +552,7 @@ const en = {
       "In Scotland and Japan, a black cat crossing your path is said to bring good luck.",
     "little-ghost":
       "A ghost in a sheet is one of the oldest Halloween costumes there is.",
-    "peekaboo-moon":
+    "cloudy-moon":
       "The Moon always shows Earth the same face; nobody saw its far side until 1959.",
     gourdling:
       "Pumpkins are fruit, not vegetables: they grow from flowers and are full of seeds.",
@@ -1120,7 +1120,7 @@ const es = {
     "barn-owl": "Lechuza",
     "black-cat": "Gato negro",
     "little-ghost": "Fantasmita",
-    "peekaboo-moon": "Luna cucú",
+    "cloudy-moon": "Luna nublada",
     gourdling: "Calabacito",
     scarecrow: "Espantapájaros",
     mummy: "Momia",
@@ -1210,7 +1210,7 @@ const es = {
       "En Escocia y en Japón se dice que un gato negro que se cruza en tu camino trae buena suerte.",
     "little-ghost":
       "Un fantasma con una sábana es uno de los disfraces de Halloween más antiguos que hay.",
-    "peekaboo-moon":
+    "cloudy-moon":
       "La Luna siempre muestra la misma cara a la Tierra; nadie vio su cara oculta hasta 1959.",
     gourdling:
       "Las calabazas son frutos, no verduras: nacen de una flor y están llenas de semillas.",
@@ -1719,7 +1719,7 @@ const fr = {
     "barn-owl": "Chouette effraie",
     "black-cat": "Chat noir",
     "little-ghost": "Petit fantôme",
-    "peekaboo-moon": "Lune coucou",
+    "cloudy-moon": "Lune voilée",
     gourdling: "Citrouillon",
     scarecrow: "Épouvantail",
     mummy: "Momie",
@@ -1811,7 +1811,7 @@ const fr = {
       "En Écosse et au Japon, croiser un chat noir porterait bonheur.",
     "little-ghost":
       "Le fantôme en drap est l’un des plus vieux déguisements d’Halloween.",
-    "peekaboo-moon":
+    "cloudy-moon":
       "La Lune montre toujours la même face à la Terre ; personne n’a vu sa face cachée avant 1959.",
     gourdling:
       "Les citrouilles sont des fruits, pas des légumes : elles naissent d’une fleur et sont pleines de graines.",

@@ -81,7 +81,7 @@ describe("the Hollow's calendar", () => {
     expect(newcomersSoFar("2026-10-18")).toEqual([]);
     expect(newcomersSoFar("2026-10-21")).toEqual([
       "gourdling",
-      "peekaboo-moon",
+      "cloudy-moon",
       "little-ghost",
     ]);
     expect(newcomersSoFar("2026-11-02")[0]).toBe("jack-o-lantern");

@@ -72,7 +72,7 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
 
   // Uncommon: the first week's magic, and Monday's vampire.
   {
-    slug: "peekaboo-moon",
+    slug: "cloudy-moon",
     tier: "uncommon",
     width: 70,
     motion: "drift",

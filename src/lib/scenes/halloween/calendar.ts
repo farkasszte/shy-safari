@@ -37,7 +37,7 @@ export const OPENING_SEVEN = [
  */
 export const NEWCOMERS: { day: string; slug: string }[] = [
   { day: "2026-10-19", slug: "little-ghost" },
-  { day: "2026-10-20", slug: "peekaboo-moon" },
+  { day: "2026-10-20", slug: "cloudy-moon" },
   { day: "2026-10-21", slug: "gourdling" },
   { day: "2026-10-22", slug: "scarecrow" },
   { day: "2026-10-23", slug: "mummy" },
