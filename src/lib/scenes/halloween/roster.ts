@@ -93,8 +93,20 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     motion: "graze",
     parts: ["part-arms", "part-head"],
   },
-  { slug: "mummy", tier: "uncommon", width: 92, motion: "creep", parts: [] },
-  { slug: "vampire", tier: "uncommon", width: 80, motion: "trot", parts: [] },
+  {
+    slug: "mummy",
+    tier: "uncommon",
+    width: 92,
+    motion: "creep",
+    parts: ["part-arms", "part-tail"],
+  },
+  {
+    slug: "vampire",
+    tier: "uncommon",
+    width: 80,
+    motion: "trot",
+    parts: ["part-wings"],
+  },
 
   // Rare: the big ones, one each per Session at most.
   {
@@ -103,16 +115,22 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     width: 130,
     // Long stops between short walks: it holds still like a statue.
     motion: "graze",
-    parts: [],
+    parts: ["part-tail", "part-wings"],
   },
-  { slug: "werewolf", tier: "rare", width: 140, motion: "graze", parts: [] },
+  {
+    slug: "werewolf",
+    tier: "rare",
+    width: 140,
+    motion: "graze",
+    parts: ["part-head", "part-ears", "part-tail"],
+  },
   {
     slug: "great-boo",
     tier: "rare",
     width: 240,
     motion: "glide",
     departure: "fade",
-    parts: [],
+    parts: ["part-body", "part-arms"],
   },
   {
     slug: "jack-o-lantern",

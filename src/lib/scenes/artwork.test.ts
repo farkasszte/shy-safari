@@ -35,14 +35,7 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
  * as it lands: this list ends empty.
  */
 const NOT_DRAWN_YET: Partial<Record<SceneId, string[]>> = {
-  halloween: [
-    "mummy",
-    "vampire",
-    "gargoyle",
-    "werewolf",
-    "great-boo",
-    "jack-o-lantern",
-  ],
+  halloween: ["jack-o-lantern"],
 };
 
 /** The Scenes whose art brief (§9, §10) prefixes every id with the Scene. */
