@@ -118,9 +118,9 @@ export const HALLOWEEN_ROSTER: CreatureDef[] = [
     parts: ["part-tail", "part-wings"],
   },
   {
-    slug: "werewolf",
+    slug: "howling-wolf",
     tier: "rare",
-    width: 140,
+    width: 150,
     motion: "graze",
     parts: ["part-head", "part-ears", "part-tail"],
   },

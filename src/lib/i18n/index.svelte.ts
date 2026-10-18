@@ -466,7 +466,7 @@ const en = {
     mummy: "Mummy",
     vampire: "Vampire",
     gargoyle: "Gargoyle",
-    werewolf: "Werewolf",
+    "howling-wolf": "Howling wolf",
     "great-boo": "The Great Boo",
     "jack-o-lantern": "Jack O. Lantern",
   },
@@ -564,8 +564,8 @@ const en = {
       "Real vampire bats live in Central and South America, and share their food with friends who go hungry.",
     gargoyle:
       "Real gargoyles are rain spouts: water runs out of their mouths, away from the walls.",
-    werewolf:
-      "Stories of people who turn into wolves go back more than 2,000 years, to ancient Greece.",
+    "howling-wolf":
+      "Wolves howl to call their pack together, and a howl can carry for miles.",
     "great-boo":
       "People have been shouting “Boo!” to make each other jump since at least the 1700s.",
     "jack-o-lantern":
@@ -1126,7 +1126,7 @@ const es = {
     mummy: "Momia",
     vampire: "Vampiro",
     gargoyle: "Gárgola",
-    werewolf: "Hombre lobo",
+    "howling-wolf": "Lobo aullador",
     "great-boo": "El Gran Bu",
     "jack-o-lantern": "Jack O. Lantern",
   },
@@ -1222,8 +1222,8 @@ const es = {
       "Los murciélagos vampiro de verdad viven en América Central y del Sur, y comparten su comida con los amigos que pasan hambre.",
     gargoyle:
       "Las gárgolas de verdad son desagües: el agua de lluvia sale por su boca, lejos de las paredes.",
-    werewolf:
-      "Las historias de personas que se convierten en lobos tienen más de 2.000 años y vienen de la antigua Grecia.",
+    "howling-wolf":
+      "Los lobos aúllan para reunir a su manada, y un aullido se oye a kilómetros.",
     "great-boo":
       "La gente lleva gritando «¡Bu!» para asustarse desde por lo menos el siglo XVIII.",
     "jack-o-lantern":
@@ -1725,7 +1725,7 @@ const fr = {
     mummy: "Momie",
     vampire: "Vampire",
     gargoyle: "Gargouille",
-    werewolf: "Loup-garou",
+    "howling-wolf": "Loup hurleur",
     "great-boo": "Le Grand Bouh",
     "jack-o-lantern": "Jack O. Lantern",
   },
@@ -1823,8 +1823,8 @@ const fr = {
       "Les vraies chauves-souris vampires vivent en Amérique centrale et du Sud, et partagent leur repas avec leurs amies affamées.",
     gargoyle:
       "Les vraies gargouilles sont des gouttières : l’eau de pluie sort par leur bouche, loin des murs.",
-    werewolf:
-      "Les histoires de gens qui se changent en loups remontent à plus de 2 000 ans, en Grèce antique.",
+    "howling-wolf":
+      "Les loups hurlent pour rassembler leur meute, et un hurlement s’entend à des kilomètres.",
     "great-boo":
       "On crie « Bouh ! » pour se faire sursauter depuis au moins le XVIIIe siècle.",
     "jack-o-lantern":

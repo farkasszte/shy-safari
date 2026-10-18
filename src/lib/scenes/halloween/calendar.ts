@@ -43,7 +43,7 @@ export const NEWCOMERS: { day: string; slug: string }[] = [
   { day: "2026-10-23", slug: "mummy" },
   { day: "2026-10-26", slug: "vampire" },
   { day: "2026-10-27", slug: "gargoyle" },
-  { day: "2026-10-28", slug: "werewolf" },
+  { day: "2026-10-28", slug: "howling-wolf" },
   { day: "2026-10-29", slug: "great-boo" },
   { day: "2026-10-30", slug: "jack-o-lantern" },
 ];
