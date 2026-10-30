@@ -9,7 +9,7 @@
 import { browser } from "$app/environment";
 import type { SceneId } from "$lib/scenes/types";
 
-export type LanguageCode = "en" | "es" | "fr";
+export type LanguageCode = "en" | "es" | "fr" | "hu";
 
 const en = {
   name: "English",
@@ -326,7 +326,7 @@ const en = {
       "A computer with a microphone and an up-to-date web browser such as Chrome, Edge, Firefox or Safari. Laptops, Chromebooks and interactive whiteboards all work. It is designed for a projector or large screen, but it runs on a tablet or phone too.",
     "guide.faq.languages.q": "Which languages does it support?",
     "guide.faq.languages.a":
-      "English, Spanish and French. It follows the browser's language, and you can change it from the menu at the top of the screen.",
+      "English, Spanish, French and Hungarian. It follows the browser's language, and you can change it from the menu at the top of the screen.",
     "guide.faq.meter.q": "How is it different from a noise meter?",
     "guide.faq.meter.a":
       "A noise meter shows the class how loud they are, which can turn getting louder into a game. Shy Safari shows only a peaceful scene that slowly fills with animals, so the reward for quiet work is what the class sees, and there is no score to beat.",
@@ -955,7 +955,7 @@ const es = {
       "Un ordenador con micrófono y un navegador actualizado, como Chrome, Edge, Firefox o Safari. Funciona en portátiles, Chromebooks y pizarras digitales. Está pensado para un proyector o una pantalla grande, pero también funciona en una tableta o un móvil.",
     "guide.faq.languages.q": "¿En qué idiomas está?",
     "guide.faq.languages.a":
-      "En inglés, español y francés. Sigue el idioma del navegador, y puedes cambiarlo desde el menú de la parte superior de la pantalla.",
+      "En inglés, español, francés y húngaro. Sigue el idioma del navegador, y puedes cambiarlo desde el menú de la parte superior de la pantalla.",
     "guide.faq.meter.q": "¿En qué se diferencia de un medidor de ruido?",
     "guide.faq.meter.a":
       "Un medidor de ruido le muestra a la clase lo fuerte que está hablando, y eso puede convertir el hacer ruido en un juego. Shy Safari solo muestra una escena tranquila que se va llenando de animales, así que lo que la clase ve es la recompensa por trabajar en silencio, y no hay ninguna puntuación que batir.",
@@ -1554,7 +1554,7 @@ const fr = {
       "D'un ordinateur avec un micro et d'un navigateur à jour comme Chrome, Edge, Firefox ou Safari. Il fonctionne sur les ordinateurs portables, les Chromebooks et les tableaux interactifs. Il est pensé pour un vidéoprojecteur ou un grand écran, mais fonctionne aussi sur tablette ou téléphone.",
     "guide.faq.languages.q": "Quelles langues sont disponibles ?",
     "guide.faq.languages.a":
-      "L'anglais, l'espagnol et le français. Il suit la langue du navigateur, et vous pouvez la changer depuis le menu en haut de l'écran.",
+      "L'anglais, l'espagnol, le français et le hongrois. Il suit la langue du navigateur, et vous pouvez la changer depuis le menu en haut de l'écran.",
     "guide.faq.meter.q": "En quoi est-ce différent d'un sonomètre ?",
     "guide.faq.meter.a":
       "Un sonomètre montre à la classe à quel point elle est bruyante, ce qui peut transformer le bruit en jeu. Shy Safari ne montre qu'une scène paisible qui se remplit peu à peu d'animaux : ce que la classe voit, c'est la récompense du travail silencieux, et il n'y a aucun score à battre.",
@@ -1835,10 +1835,603 @@ const fr = {
   },
 } satisfies Language;
 
+const hu = {
+  name: "Magyar",
+  locale: "hu",
+  ui: {
+    "language.change": "Nyelv váltása",
+    "app.pageTitle": "Shy Safari — ingyenes tantermi hangerőfigyelő",
+    "app.description":
+      "Ingyenes hangerőfigyelő a kivetítőre. A félénk szavannai és korallzátony-állatok akkor jönnek elő, ha a terem csendes marad. Regisztráció nélkül, hangrögzítés nélkül.",
+    "brand.title": "Készítette: teacher.dev",
+    "common.builtBy": "Készítette: teacher.dev",
+    "common.about": "a projektről",
+    "common.privacy": "adatvédelem",
+    "common.howItWorks": "hogyan működik",
+    "preview.alt":
+      "Nyugodt szavanna elefánttal, zebrákkal, oroszlánnal, zsiráffal és szurikátával, mellette a Shy Safari felirat, ingyenes tantermi hangerőfigyelő",
+    "common.back": "← Vissza a Shy Safarihoz",
+    "common.close": "Bezárás",
+    "common.cancel": "Mégse",
+    "common.done": "Kész",
+    "fullScreen.enter": "Teljes képernyő",
+    "fullScreen.exit": "Kilépés a teljes képernyőből",
+    "float.open": "Lebegő ablak más lapok fölött",
+    "float.openHint": "A jelenet kis ablakban, a diák vagy más lapok fölött",
+    "float.failed": "A lebegő ablakot nem sikerült megnyitni.",
+    "floating.title": "A Shy Safari lebeg",
+    "floating.instructions":
+      "A jelenet saját ablakban van a többi lap fölött, és tovább figyeli a termet. Tartsd nyitva ezt a lapot: az ablak visszahozó gombja ide hozza vissza.",
+    "floating.return": "A Shy Safari visszahozása ide",
+    "start.shy": "Pszt… ezek az állatok félénkek!",
+    "start.explain":
+      "Ha túl hangos a terem, rejtve maradnak. Ha újra csend lesz, sorra előjönnek.",
+    "start.button": "Indítás",
+    "start.micNote":
+      "A böngésző engedélyt kér a mikrofonra. A hangot ez a gép méri: nem rögzítjük, és nem küldjük sehová.",
+    "scene.label": "Jelenet",
+    "scene.change": "Jelenet váltása",
+    "scene.new": "Új",
+    "scene.newScenes": "Új jelenetek",
+    "scene.savanna.name": "Szavanna",
+    "scene.savanna.hint": "Zebrák, zsiráfok és oroszlánok",
+    "scene.reef.name": "Korallzátony",
+    "scene.reef.hint": "Halak, teknősök és cápák",
+    "scene.space.name": "Mélyűr",
+    "scene.space.hint": "Műholdak, üstökösök és galaxisok",
+    "scene.prehistoric.name": "Őskor",
+    "scene.prehistoric.hint": "T. rex, triceratopsz és raptorok",
+    "scene.forest.name": "Erdő",
+    "scene.forest.hint": "Mókusok, rókák és őzek",
+    "scene.jungle.name": "Dzsungel",
+    "scene.jungle.hint": "Lajhárok, tukánok és jaguárok",
+    "scene.arctic.name": "Jeges-tenger",
+    "scene.arctic.hint": "Jegesmedvék, fókák és narválok",
+    "scene.halloween.name": "Halloween",
+    "scene.halloween.hint": "Denevérek, kísértetek és töklámpások",
+    "hollow.limited": "Ideiglenes",
+    "hollow.daily": "Minden tanítási napon egy új állat",
+    "hollow.closesIn": "{days} nap múlva elmegy",
+    "hollow.lastDay": "Utolsó nap!",
+    "hollow.newToday": "Valaki új jelent meg a tökös kertben…",
+    "hollow.signClosesIn": "A tökös kert bezár {days} nap múlva",
+    "hollow.signLastDay": "Utolsó nap a tökös kertben",
+    "collection.unlocksInDays": "Feloldás {days} nap múlva",
+    "collection.unlocksIn": "Feloldás {time} múlva",
+    "collection.comingSoon": "Hamarosan",
+    "collection.newToday": "Ma új",
+    "collection.toCome": "Még {count} jön",
+    "controls.reset": "Alaphelyzet",
+    "controls.confirmReset": "Alaphelyzet visszaállítása",
+    "controls.resetQuestion": "Kiüríted ezt a jelenetet, és újrakezditek?",
+    "controls.resetYes": "Igen, törlöm",
+    "controls.keepGoing": "Marad",
+    "controls.settings": "Beállítások",
+    "controls.animals": "Állatok",
+    "controls.timer": "Időzítő",
+    "timer.label": "Időzítő",
+    "timer.minutes": "Perc",
+    "timer.seconds": "Másodperc",
+    "timer.start": "Indítás",
+    "timer.pause": "Szünet",
+    "timer.resume": "Folytatás",
+    "timer.reset": "Nullázás",
+    "timer.done": "Lejárt az idő!",
+    "timer.close": "Időzítő bezárása",
+    "timer.move":
+      "Időzítő mozgatása: húzd a szélét, vagy használd a nyílbillentyűket",
+    "timer.resize":
+      "Időzítő átméretezése: húzd a sarkát, vagy használd a nyílbillentyűket",
+    "timer.style": "Az idő kijelzése",
+    "timer.style.digits": "Számok",
+    "timer.style.circle": "Kör",
+    "timer.style.hourglass": "Homokóra",
+    "controls.addText": "Szöveg hozzáadása",
+    "controls.addTextHint": "Írj szöveget vagy rajzolj a jelenetre",
+    "notes.label": "Szöveg a jeleneten",
+    "notes.text": "Szöveg",
+    "notes.placeholder": "Írj ide…",
+    "notes.drawing": "Rajz",
+    "notes.tools": "Szövegeszközök",
+    "notes.mode": "Írás vagy rajzolás",
+    "notes.type": "Írás",
+    "notes.draw": "Rajzolás",
+    "notes.ink": "Szín",
+    "notes.ink.dark": "Sötét",
+    "notes.ink.red": "Piros",
+    "notes.ink.blue": "Kék",
+    "notes.ink.green": "Zöld",
+    "notes.undo": "Visszavonás",
+    "notes.clear": "Rajz törlése",
+    "notes.delete": "Törlés",
+    "controls.pause": "Szünet",
+    "controls.pauseHint":
+      "Egy pillanatra abbahagyja a figyelést, hogy az osztályhoz szólhass",
+    "controls.resume": "Folytatás",
+    "paused.status": "A hangerőmérő szünetel",
+    "classes.change": "Osztály váltása",
+    "classes.unnamed": "Az osztályom",
+    "classes.edit": "Osztályok szerkesztése",
+    "classes.hint": "Minden osztálynak saját állatai és saját gyűjteménye van.",
+    "classes.storage":
+      "Az osztályok ebben a böngészőben, ezen a gépen maradnak meg. Másik gépen vagy böngészőben nem látszanak, a böngésző adatainak törlése pedig törli őket.",
+    "classes.current": "A képernyőn",
+    "classes.rename": "Átnevezés",
+    "classes.renameLabel": "A(z) {name} új neve",
+    "classes.save": "Mentés",
+    "classes.delete": "Törlés",
+    "classes.deleteLabel": "{name} törlése",
+    "classes.addLabel": "Új osztály neve",
+    "classes.addPlaceholder": "pl. 2. óra",
+    "classes.add": "Osztály hozzáadása",
+    "classes.deleteTitle": "Biztos?",
+    "classes.deleteBody":
+      "Törlöd: {name}? Az állatai minden jelenetben és a gyűjteménye véglegesen eltűnik.",
+    "classes.deleteOnly":
+      "Ez az egyetlen osztályod, ezért egy új, üres osztály lép a helyére.",
+    "classes.deleteYes": "Igen, törlöm",
+    "settings.title": "Beállítások",
+    "settings.microphone": "Mikrofon",
+    "settings.meter": "Hangerőmérő",
+    "settings.showMeter": "Megjelenítés a képernyőn",
+    "settings.showMeterHint":
+      "A hangerőmérő a jelenet fölött marad, míg az osztály dolgozik",
+    "start.explainFlee":
+      "Ha túl hangos a terem, elszöknek! Ha csend marad, előjönnek és ott is maradnak.",
+    "settings.tooLoud": "Ha túl hangos",
+    "loud.flee.label": "Az állatok elszöknek",
+    "loud.flee.hint":
+      "Mindenki megdermed, és öt másodpercenként elszökik valaki, míg csend nem lesz",
+    "loud.pause.label": "A jelenet megáll",
+    "loud.pause.hint": "Az állatok mozdulatlanok, és újak nem jönnek elő",
+    "settings.arrival": "Milyen sűrűn érkeznek az állatok",
+    "settings.aboutEvery": "Körülbelül egy állat",
+    "settings.minutes": "percenként",
+    "settings.showCounter": "Számolja az érkező állatokat",
+    "counter.label": "Megérkezett állatok: {count}",
+    "settings.tryIt": "Próbáld ki",
+    "settings.summon": "Minden állat előhozása",
+    "settings.advanced": "Speciális",
+    "settings.previewHalloween": "Halloween-figurák előnézete",
+    "preview.title": "Halloween-figurák",
+    "preview.opening": "Kezdettől látható",
+    "preview.unlocks": "Feloldás: {date}",
+    "settings.savedNote":
+      "A beállítások csak ezen a gépen maradnak meg. A mikrofon hangja nem hagyja el az eszközt.",
+    "goal.silent.label": "Csend",
+    "goal.silent.hint": "Semmi beszéd",
+    "goal.independent.label": "Önálló munka",
+    "goal.independent.hint": "Csak halk suttogás",
+    "goal.partner.label": "Pármunka",
+    "goal.partner.hint": "Beszélgető hangon",
+    "rate.relaxed": "Laza",
+    "rate.normal": "Normál",
+    "rate.lively": "Élénk",
+    "rate.hint": "körülbelül egy állat {minutes} percenként",
+    "mic.default": "Alapértelmezett mikrofon",
+    "mic.numbered": "{number}. mikrofon",
+    "mic.connecting": "Csatlakozás…",
+    "mic.connect": "Mikrofon csatlakoztatása",
+    "meter.current": "Jelenlegi hangerő",
+    "meter.paused": "Szünetel — túl hangos",
+    "meter.arriving": "Érkeznek az állatok",
+    "meter.goal":
+      "Az állatok addig érkeznek, míg a terem a vonaltól balra marad ({goal}%)",
+    "calibration.title": "Kalibrálás",
+    "calibration.needMic": "Előbb csatlakoztasd a mikrofont",
+    "calibration.calibrated": "✓ Kalibrálva",
+    "calibration.fit": "Igazítsd a mérőt a mikrofonodhoz",
+    "calibration.calibrate": "Kalibrálás",
+    "calibration.recalibrate": "Újrakalibrálás",
+    "calibration.dialogTitle": "A terem kalibrálása",
+    "calibration.progress": "Folyamat",
+    "calibration.stepQuiet": "Csendes terem",
+    "calibration.stepTalking": "Normál beszéd",
+    "calibration.stepDone": "Kész",
+    "calibration.introLead": "1. lépés:",
+    "calibration.intro":
+      "kérd meg az osztályt, hogy legyen teljesen csendben. Ha kész, {seconds} másodpercig mintát veszünk.",
+    "calibration.quietButton": "Csendes a terem!",
+    "calibration.listening": "Figyelés:",
+    "calibration.quietLeft": "maradjon csend még {seconds} másodpercig…",
+    "calibration.readyLead": "2. lépés:",
+    "calibration.ready":
+      "kérd meg az osztályt, hogy normál munkahangerőn beszéljen.",
+    "calibration.talkingButton": "Az osztály beszél!",
+    "calibration.talkingLeft":
+      "beszéljetek normál hangon még {seconds} másodpercig…",
+    "calibration.doneLead": "Kalibrálva.",
+    "calibration.done":
+      "A mérő mostantól ennek a teremnek a skáláján mutat — nézd meg, hogy a célvonal ott van-e, ahol szeretnéd.",
+    "calibration.retryLead": "Próbáljuk újra.",
+    "calibration.retry":
+      "A két minta túl közel volt egymáshoz, nem lehetett megkülönböztetni őket — lehet, hogy nem volt elég csend, vagy a mikrofon nem hallja az osztályt.",
+    "calibration.startAgain": "Újrakezdés",
+    "calibration.hears": "Amit a mikrofon hall",
+    "collection.title": "Állatok",
+    "collection.spotted": "{class}: {total} állatból {seen} látva",
+    "collection.notSeen": "Még nem láttátok",
+    "collection.seen": "Láttátok: {count}×",
+    "tier.common": "Gyakori",
+    "tier.uncommon": "Kevésbé gyakori",
+    "tier.rare": "Ritka",
+    "chance.common.label": "A gyakori állatok esélye",
+    "chance.uncommon.label": "A kevésbé gyakori állatok esélye",
+    "chance.rare.label": "A ritka állatok esélye",
+    "chance.common": "Az érkezések {percent}%-a gyakori",
+    "chance.uncommon": "Az érkezések {percent}%-a kevésbé gyakori",
+    "chance.rare": "Az érkezések {percent}%-a ritka",
+    "blocked.title": "Az állatoknak hallaniuk kell a termet",
+    "blocked.denied":
+      "A böngésző megtagadta a mikrofon használatát. Kattints a címsor lakat vagy kamera ikonjára, engedélyezd a mikrofont, majd próbáld újra.",
+    "blocked.missing":
+      "Ez a mikrofon már nem érhető el. Válassz másikat lent, és próbáld újra.",
+    "blocked.unsupported":
+      "Ez a böngésző nem tud mikrofont használni. A Chrome, az Edge és a Safari mind működik.",
+    "blocked.tryAgain": "Újrapróbálás",
+    "about.pageTitle": "A projektről — Shy Safari",
+    "about.meta":
+      "A Shy Safari ingyenes tantermi hangerőeszköz, az EdTech-a-thonon készült, a teacher.dev gondozásában. Reklám és fiók nélkül.",
+    "about.title": "A projektről",
+    "about.lede":
+      "Tedd ki a kivetítőre. Minél csendesebb a terem, annál több állat jön elő.",
+    "about.originTitle": "Honnan jön",
+    "about.origin.beforeEvent":
+      "A Shy Safari egy háromnapos projektként indult a ",
+    "about.origin.afterEvent":
+      " nevű eseményen, ahol emberek ingyenes tantermi eszközök építésére gyűlnek össze. Ma a ",
+    "about.origin.afterTeacher":
+      " gondozza, ahol a többi eszközünket is megtalálod.",
+    "about.photoAlt": "A 2026-os EdTech-a-thon résztvevői",
+    "about.purposeTitle": "Mit tud",
+    "about.purpose":
+      "Tedd ki a táblára a szavannát, a korallzátonyt, a mélyűrt, a dinoszauruszok korát, az erdőt, a dzsungelt vagy a Jeges-tengert, és nyomd meg az Indítást. Amíg az osztály a hangerő-cél alatt marad, egyszerre egy állat jön elő. Ha túl hangos lesz, elszöknek — ezt a beállításokban átállíthatod, hogy a jelenet csak megálljon, míg újra csend nem lesz. A legtöbb állat gyakori, néhány ritka, és az osztály visszanézheti mindet, amit látott.",
+    "about.promiseTitle": "Nincs apró betű",
+    "about.promise":
+      "Ingyenes. Nincs fizetős változat és nincs reklám, és nem gyűjtünk személyes adatot sem a pedagógusokról, sem a diákokról.",
+    "about.feedbackTitle": "Kapcsolat",
+    "about.feedback":
+      "Ha valami nem működik, vagy ötleted van a Shy Safarihoz vagy egy másik, az órán használható eszközhöz, írj nekünk e-mailt.",
+    "about.email": "Írás a support@teacher.dev címre",
+    "privacy.pageTitle": "Adatvédelem — Shy Safari",
+    "privacy.meta": "Mit gyűjt a Shy Safari, mit nem, és miért.",
+    "privacy.title": "Adatvédelem",
+    "privacy.lede": "Mit gyűjtünk, mit nem, és miért.",
+    "privacy.microphone":
+      "A Shy Safari csak azt méri a mikrofonnal, hogy milyen hangos a terem. A hang pillanatról pillanatra egyetlen hangerőértékké alakul ezen a gépen: nem rögzítjük, nem mentjük, és nem küldjük sehová.",
+    "privacy.local":
+      "Nincsenek fiókok, és nem gyűjtünk személyes adatot sem pedagógusoktól, sem diákoktól. A beállítások, a kalibrálás és az osztályok által látott állatok kizárólag a böngésző helyi tárolójában maradnak meg ezen a gépen; a böngésző adatainak törlése eltünteti őket.",
+    "privacy.analytics.beforeLink":
+      "Az oldal forgalmát névtelenül a Cloudflare Web Analytics számlálja, ami segít megérteni, hogyan használják a Shy Safarit a tantermekben. A Cloudflare Web Analytics nem használ sütiket, nem ujjlenyomatol, és nem követi a látogatókat más oldalakon; részletek a Cloudflare ",
+    "privacy.analytics.link": "adatvédelmi irányelveiben",
+    "privacy.analytics.afterLink":
+      ". Látogatói adatot nem adunk át, nem adunk el és nem osztunk meg harmadik féllel.",
+    "privacy.contact": "Kérdés vagy észrevétel? Írj ide: ",
+    "guide.title": "Hogyan működik a Shy Safari",
+    "guide.lede":
+      "Ingyenes tantermi hangerőfigyelő, amely a csendet jutalmazza, nem a zajt bünteti.",
+    "guide.whatTitle": "Mi ez",
+    "guide.what":
+      "A Shy Safari böngészőben futó tantermi hangerőfigyelő. Tedd ki a kivetítőre vagy az interaktív táblára: nyugodt szavannát, korallzátonyt, mélyűrt, kréta időszaki ártéri síkságot, erdei tisztást, dzsungelt vagy jeges tengert mutat. A számítógép mikrofonjával figyeli, milyen hangos a terem, és amíg az osztály a hangerő-cél alatt marad, egyszerre egy félénk állat jön elő. Ez a pattogó hangerőmérő ellentéte: nincs pontszám, nincs mutató és nincs piros figyelmeztetés, tehát semmi sem teszi érdekesebbé a hangoskodást a csendnél.",
+    "guide.useTitle": "Használat az órán",
+    "guide.use.open":
+      "Nyisd meg a shysafari.com oldalt a kivetítőt vezérlő gépen, válassz jelenetet (szavanna, korallzátony, mélyűr, őskor, erdő, dzsungel, Jeges-tenger), és nyomd meg az Indítást. A böngésző engedélyt kér a mikrofonra.",
+    "guide.use.goal":
+      "Állítsd be a feladathoz illő hangerő-célt: Csend, Önálló munka (halk suttogás) vagy Pármunka (beszélgető hang), illetve húzd a vonalat a mérőn bárhová a kettő közé.",
+    "guide.use.rate":
+      "Hagyd dolgozni az osztályt. Az első állat 10–20 csendes másodperc után jön elő, utána körülbelül ötpercenként egy, ha csend van. A beállításokban választhatsz Laza, Normál vagy Élénk ritmust, vagy beírhatsz tetszőleges percszámot.",
+    "guide.loudTitle": "Hogyan dönti el, hogy túl hangos a terem",
+    "guide.loud":
+      "A rövid zajok, például egy kopogás vagy egy leesett könyv, nem számítanak. A teremnek egy ideig a cél fölött kell maradnia: ha épphogy átlépi, körülbelül hat másodpercig, ha jóval hangosabb, körülbelül egy másodpercig. Amikor elcsendesedik, a jelenet három másodperc alatt kitisztul.",
+    "guide.calibrate":
+      "A kalibrálás nem kötelező. Öt másodperc csend és öt másodperc normál beszéd megtanítja az alkalmazásnak, milyen a te termed és a mikrofonod.",
+    "guide.tooLoudTitle": "Mi történik, ha túl hangos lesz",
+    "guide.tooLoud":
+      "A jelenet befelhősödik — poros fátyol a szavannán, zavaros víz a zátonyon, interferencia a mélyűrben, ködpára az őskori folyó felett, köd a fák között az erdőben, trópusi zápor a dzsungelben, hófúvás a Jeges-tengeren —, és új állat nem jön elő. A folytatás a te döntésed:",
+    "guide.tooLoud.flee":
+      "Az állatok elszöknek (ez az alapértelmezés). A jelenet megdermed, és amíg a terem hangos marad, öt másodpercenként egy, majd egyre több állat elszalad a képernyő széléről. A mélyűrben elhalványulnak, és statikus zaj lesz belőlük.",
+    "guide.tooLoud.pause":
+      "A jelenet megáll. Az állatok mozdulatlanok, semmi nem vész el, és a következő állatig vezető előrehaladás addig vár, míg a terem újra csendes nem lesz.",
+    "guide.animalsTitle": "Az állatok",
+    "guide.animals":
+      "A szavannán 17 állat él, a szurikátáktól és zebráktól a zsiráfokig, vízilovakig és orrszarvúkig; a ritkák az oroszlán, a leopárd és az elefánt. A korallzátonyon 18 él, a bohóchalaktól és csikóhalaktól a tengeriteknősökig és polipokig; a ritkák a pörölycápa, a manta-rája és a cetcápa. A mélyűrben 17 észlelés vár, idősebb diákoknak: műholdaktól, aszteroidáktól és űrhajósoktól az űrállomásig, üstökösökig és gyűrűs bolygókig; a ritkák a spirálgalaxis, a fekete lyuk, a pulzár és a gyűrűs köd. Az őskor jelenetben 17 állat él a dinoszauruszok korának legvégéről, a mai tudás szerint rajzolva: kis emlősöktől, gyíkoktól és tollas raptoroktól a triceratopszig és az ankylosaurusig; a ritkák a Tyrannosaurus, a Quetzalcoatlus és az óriás Alamosaurus. Az erdőben 17 állat él, csíkosmókusoktól, vörösbegyektől és sünöktől a mosómedvékig, rókákig és őzekig; a ritkák a szürke farkas, a fekete medve és a jávorszarvas. A dzsungelben 17 állat él, nyílméregbékáktól, tukánoktól és kapucinusmajmoktól a lajhárokig, arapapagájokig és orangutánokig; a ritkák a jaguár, a gorilla és a tigris. A Jeges-tengeren 17 állat él, lemmingektől, lundáktól és sarki rókáktól a rénszarvasokig, rozmárokig és belugákig; a ritkák a jegesmedve, a narvál és a grönlandi bálna. A gyakori állatok sűrűn előjönnek, a ritka valódi esemény, amit sok óra nem is lát. Minden jelenet a saját állatait tartja, a gyűjtemény pedig minden látott állatra emlékszik.",
+    "guide.forTitle": "Kinek szól",
+    "guide.for":
+      "Minden évfolyam pedagógusának, aki nyugodt, vizuális jelzést szeretne a hangerőről önálló munka, olvasás, dolgozatírás, állomásmunka vagy csoportmunka közben. Az egész osztály egy képernyőt lát, a diákoknak semmire nincs szükségük.",
+    "guide.faqTitle": "Gyakori kérdések",
+    "guide.faq.free.q": "Ingyenes a Shy Safari?",
+    "guide.faq.free.a":
+      "Igen. Nincs fizetőfal, nincs reklám és nincs prémium változat. Az EdTech-a-thonon készült, ahol ingyenes tantermi eszközöket építő közösség dolgozik, és a teacher.dev gondozza.",
+    "guide.faq.record.q": "Rögzíti a tantermet?",
+    "guide.faq.record.a":
+      "Nem. A mikrofon csak azt méri, milyen hangos a terem, egyetlen számmá alakítva, pillanatról pillanatra, a te gépeden. Semmi nem kerül rögzítésre, mentésre vagy továbbításra.",
+    "guide.faq.accounts.q": "Kell fiók nekem vagy a diákoknak?",
+    "guide.faq.accounts.a":
+      "Nem. Nincs regisztráció, nincs bejelentkezés és nincs telepítés. A beállítások a böngészőben maradnak meg azon a gépen.",
+    "guide.faq.devices.q": "Mire van szükség a futtatásához?",
+    "guide.faq.devices.a":
+      "Egy mikrofonnal rendelkező számítógépre és friss böngészőre, például Chrome-ra, Edge-re, Firefoxra vagy Safárira. Laptop, Chromebook és interaktív tábla is jó. Kivetítőre vagy nagy képernyőre terveztük, de tableten és telefonon is fut.",
+    "guide.faq.languages.q": "Milyen nyelveken érhető el?",
+    "guide.faq.languages.a":
+      "Angolul, spanyolul, franciául és magyarul. A böngésző nyelvét követi, és a képernyő tetején lévő menüből lehet váltani.",
+    "guide.faq.meter.q": "Miben más, mint egy hangerőmérő?",
+    "guide.faq.meter.a":
+      "A hangerőmérő megmutatja az osztálynak, milyen hangos, amiből könnyen játék lesz a hangoskodás. A Shy Safari csak egy békés jelenetet mutat, ami lassan megtelik állatokkal: a csendes munka jutalma az, amit az osztály lát, és nincs pontszám, amit meg kellene dönteni.",
+  },
+  creatures: {
+    meerkat: "Szurikáta",
+    warthog: "Varacskos disznó",
+    zebra: "Zebra",
+    gazelle: "Thomson-gazella",
+    ostrich: "Strucc",
+    "guinea-fowl": "Gyöngytyúk",
+    tortoise: "Teknős",
+    hornbill: "Szarvascsőrű madár",
+    giraffe: "Zsiráf",
+    hippo: "Víziló",
+    rhino: "Orrszarvú",
+    cheetah: "Gepárd",
+    flamingo: "Flamingó",
+    vulture: "Keselyű",
+    lion: "Oroszlán",
+    leopard: "Leopárd",
+    elephant: "Elefánt",
+    clownfish: "Bohóchal",
+    "blue-tang": "Kék tang",
+    angelfish: "Angyalhal",
+    seahorse: "Csikóhal",
+    starfish: "Tengericsillag",
+    crab: "Rák",
+    shrimp: "Garnélarák",
+    parrotfish: "Papagájhal",
+    pufferfish: "Gömbhal",
+    octopus: "Polip",
+    "sea-turtle": "Tengeriteknős",
+    "moray-eel": "Muréna",
+    stingray: "Tüskésrája",
+    "jellyfish-bloom": "Medúzaraj",
+    cuttlefish: "Tintahal",
+    "hammerhead-shark": "Pörölycápa",
+    "manta-ray": "Manta-rája",
+    "whale-shark": "Cetcápa",
+    satellite: "Műhold",
+    asteroid: "Aszteroida",
+    meteor: "Meteor",
+    "space-probe": "Űrszonda",
+    "space-capsule": "Űrkapszula",
+    astronaut: "Űrhajós",
+    "space-shuttle": "Űrrepülőgép",
+    iss: "Űrállomás",
+    comet: "Üstökös",
+    "ringed-planet": "Gyűrűs bolygó",
+    moon: "Hold",
+    "space-telescope": "Űrtávcső",
+    "gas-giant": "Gázóriás",
+    "spiral-galaxy": "Spirálgalaxis",
+    "black-hole": "Fekete lyuk",
+    pulsar: "Pulzár",
+    "ring-nebula": "Gyűrűs köd",
+    didelphodon: "Didelphodon",
+    palaeosaniwa: "Palaeosaniwa",
+    basilemys: "Basilemys",
+    avisaurus: "Avisaurus",
+    pectinodon: "Pectinodon",
+    acheroraptor: "Achero­raptor",
+    thescelosaurus: "Thescelo­saurus",
+    struthiomimus: "Struthio­mimus",
+    anzu: "Anzu",
+    pachycephalosaurus: "Pachy­cephalo­saurus",
+    dakotaraptor: "Dakota­raptor",
+    ankylosaurus: "Ankylo­saurus",
+    triceratops: "Triceratops",
+    edmontosaurus: "Edmonto­saurus",
+    tyrannosaurus: "Tyranno­saurus",
+    quetzalcoatlus: "Quetzal­coatlus",
+    alamosaurus: "Alamosaurus",
+    chipmunk: "Csíkosmókus",
+    "gray-squirrel": "Szürke mókus",
+    robin: "Vörösbegy",
+    hedgehog: "Sün",
+    cottontail: "Pamutfarkú nyúl",
+    woodpecker: "Fakopáncs",
+    skunk: "Bűzösborz",
+    raccoon: "Mosómedve",
+    "great-horned-owl": "Amerikai uhu",
+    porcupine: "Tarajos sül",
+    badger: "Borz",
+    beaver: "Hód",
+    "red-fox": "Vörös róka",
+    "white-tailed-deer": "Fehérfarkú szarvas",
+    "gray-wolf": "Szürke farkas",
+    "black-bear": "Fekete medve",
+    moose: "Jávorszarvas",
+    "poison-dart-frog": "Nyílméregbéka",
+    "tree-frog": "Vörösszemű levelibéka",
+    butterfly: "Kék morpho",
+    hummingbird: "Kolibri",
+    toucan: "Tukán",
+    capuchin: "Kapucinusmajom",
+    iguana: "Zöld leguán",
+    capybara: "Vízidisznó",
+    chameleon: "Kaméleon",
+    sloth: "Lajhár",
+    macaw: "Vörös ara",
+    orangutan: "Orangután",
+    okapi: "Okapi",
+    tapir: "Maláj tapír",
+    jaguar: "Jaguár",
+    gorilla: "Gorilla",
+    tiger: "Tigris",
+    lemming: "Lemming",
+    "arctic-hare": "Sarki nyúl",
+    ptarmigan: "Sarki hófajd",
+    puffin: "Lund",
+    "arctic-tern": "Sarki csér",
+    "arctic-fox": "Sarki róka",
+    "harp-seal": "Grönlandi fóka",
+    eider: "Királyi pehelyréce",
+    "snowy-owl": "Hóbagoly",
+    caribou: "Rénszarvas",
+    "musk-ox": "Pézsmatulok",
+    "arctic-wolf": "Sarki farkas",
+    walrus: "Rozmár",
+    beluga: "Beluga",
+    "polar-bear": "Jegesmedve",
+    narwhal: "Narvál",
+    "bowhead-whale": "Grönlandi bálna",
+    "harvest-mouse": "Törpengér",
+    "garden-spider": "Keresztespók",
+    toad: "Varangy",
+    "brown-bat": "Kis barna denevér",
+    crow: "Varjú",
+    "barn-owl": "Gyöngybagoly",
+    "black-cat": "Fekete macska",
+    "little-ghost": "Kis kísértet",
+    "cloudy-moon": "Felhős Hold",
+    gourdling: "Töklény",
+    scarecrow: "Madárijesztő",
+    mummy: "Múmia",
+    vampire: "Vámpír",
+    gargoyle: "Vízköpő",
+    "howling-wolf": "Üvöltő farkas",
+    "great-boo": "A Nagy Bú",
+    "jack-o-lantern": "Töklámpás",
+  },
+  facts: {
+    didelphodon:
+      "Egy erszényes rokon, amelynek a méretéhez képest minden ismert emlősnél erősebb volt a harapása.",
+    palaeosaniwa: "Nagy ragadozó gyík, a mai varánuszok rokona.",
+    basilemys: "Szárazföldi teknős alacsony, széles, durva felületű páncéllal.",
+    avisaurus:
+      "„Ellentétes madár”: a dinoszauruszok korának leggyakoribb madárféléje. Valamennyien kihaltak velük együtt.",
+    pectinodon:
+      "A neve „fésűfogat” jelent, a fogain lévő nagy fogazatok miatt — szinte csak ezek maradtak meg belőle.",
+    acheroraptor:
+      "Tollas raptor, amelyet az Acherónról, a görög mitológia alvilági folyójáról neveztek el.",
+    thescelosaurus:
+      "A neve „csodálatos gyíkot” jelent. Zömök növényevő csőrrel és pofazacskóval.",
+    struthiomimus:
+      "A neve „struccltolvaj”: fogatlan csőr, hosszú lábak és tollas szárnyak.",
+    anzu: "Egy mezopotámiai mitológiai tollas démonról kapta a nevét. Magas taréj volt a fején, mint a kazuárnál.",
+    pachycephalosaurus:
+      "A fején lévő csontos boltozat akár 25 centiméter vastag is lehetett.",
+    dakotaraptor:
+      "Az alkarcsontjain lévő dudorok mutatják, hol rögzültek a nagy szárnytollak.",
+    ankylosaurus:
+      "A farka végén összeforrt csontból álló bunkó volt, egy merevvé vált farokon, hogy lendíteni lehessen.",
+    triceratops: "A Hell Creek kőzeteinek leggyakoribb nagy dinoszaurusza.",
+    edmontosaurus:
+      "A megkövült bőr húsos taréjt mutat a hátán, tüskéket a farkán és patákat a lábujjain.",
+    tyrannosaurus:
+      "A valaha élt szárazföldi állatok egyik legerősebb harapásával. A fogait valószínűleg ajak takarta, mint a gyíkoknál.",
+    quetzalcoatlus:
+      "Pteroszaurusz, körülbelül 10 méteres fesztávolsággal; négy lábon állva olyan magas volt, mint egy zsiráf.",
+    alamosaurus:
+      "Az utolsó szauropodák egyike, 26 méter vagy annál is hosszabb: korának egyik legnagyobb állata.",
+    lemming:
+      "Nem téli álmot alszik: egész télen a hó alatti járatokban él, ahol melegebb van.",
+    "arctic-hare":
+      "Óránként 60 kilométerrel is fut, és néha csak a hátsó lábain ugrál, mint egy kenguru.",
+    ptarmigan:
+      "A lábán lévő tollak hótalpként működnek, télen pedig a farkát kivéve teljesen fehérré válik.",
+    puffin:
+      "A csőre csak nyáron ilyen élénk, és egyszerre több mint tíz kis halat is elbír benne.",
+    "arctic-tern":
+      "Minden évben elrepül a sarkvidékről az Antarktiszig és vissza: ez minden állat közül a leghosszabb vándorút.",
+    "arctic-fox":
+      "Sűrű bundája mínusz 50 fokon is melegen tartja, és bozontos farkát takaróként tekeri maga köré.",
+    "harp-seal":
+      "A kölykök pihe-puha fehér bundával születnek, és néhány hét múlva szürke, pettyes bundára váltanak.",
+    eider:
+      "A fészkét a saját melléről szedett puha pehellyel béleli: az egyik legmelegebb toll, ami létezik.",
+    "snowy-owl":
+      "A legtöbb bagolytól eltérően nappal vadászik: a sarki nyáron a nap le sem nyugszik.",
+    caribou:
+      "A hímek és a nőstények is agancsot növesztenek, és a csordák évente messzebb vándorolnak, mint bármely más szárazföldi emlős.",
+    "musk-ox":
+      "Ha veszély közeledik, a csorda körbe áll, szarvval kifelé, a borjak pedig biztonságban a közepén.",
+    "arctic-wolf":
+      "Olyan messze északon él, hogy némelyik falka szinte soha nem találkozott emberrel.",
+    walrus: "A hosszú agyarait használja, hogy kihúzza magát a vízből a jégre.",
+    beluga:
+      "A tengerek kanárijának nevezik a füttyeiért és csiviteléséért. A legtöbb bálnától eltérően el tudja fordítani a fejét.",
+    "polar-bear":
+      "A vastag fehér bunda alatt a bőre fekete, hogy jobban elnyelje a nap melegét.",
+    narwhal:
+      "Az agyara egy fog, amely átszúrja a felső ajkát, spirálisan nő, és akár 3 méter hosszú is lehet.",
+    "bowhead-whale":
+      "Hatalmas fejével át tudja törni a jeget, és több mint 200 évig is élhet.",
+    "harvest-mouse":
+      "A világ egyik legkisebb egere: a farkát úgy tekeri egy szár köré, mintha egy plusz keze lenne.",
+    "garden-spider":
+      "Szinte minden éjjel új hálót sző, a régit pedig gyakran megeszi.",
+    toad: "Varangytól nem lehet szemölcsöt kapni: a dudorok csak a bőre természetes mintázata.",
+    "brown-bat":
+      "A rovarokat a visszaverődő hangok alapján találja meg a sötétben, és egy óra alatt több százat is elkap.",
+    crow: "A varjak felismerik az emberi arcokat, és évekig emlékeznek rájuk.",
+    "barn-owl":
+      "Szív alakú arca tányérként gyűjti a hangot, így teljes sötétségben is tud vadászni.",
+    "black-cat":
+      "Skóciában és Japánban azt tartják, hogy a fekete macska szerencsét hoz, ha az utadba kerül.",
+    "little-ghost": "A lepedős kísértet az egyik legrégebbi halloweeni jelmez.",
+    "cloudy-moon":
+      "A Hold mindig ugyanazt az oldalát fordítja a Föld felé; a túlsó oldalát 1959-ig senki nem látta.",
+    gourdling:
+      "A tök gyümölcs, nem zöldség: virágból fejlődik, és tele van maggal.",
+    scarecrow:
+      "A gazdák évezredek óta készítenek madárijesztőt, hogy távol tartsák a madarakat a terméstől.",
+    mummy: "Az ókori egyiptomiak több száz méter vászonba csavarták a múmiát.",
+    vampire:
+      "A valódi vámpírdenevérek Közép- és Dél-Amerikában élnek, és megosztják a táplálékukat az éhes társaikkal.",
+    gargoyle:
+      "A valódi vízköpők esőcsatornák: a víz a szájukon folyik ki, távol a faltól.",
+    "howling-wolf":
+      "A farkasok üvöltéssel hívják össze a falkát, és az üvöltés kilométerekre elhallatszik.",
+    "great-boo":
+      "Legalább a 18. század óta kiabálnak az emberek „Búú!”-t, hogy megijesszék egymást.",
+    "jack-o-lantern":
+      "Az első töklámpásokat Írországban tarlórépából faragták; Amerikában a tök vette át a helyüket.",
+  },
+  scenes: {
+    space: {
+      "start.shy": "Ha csendes a terem, tiszta a jel.",
+      "start.explain":
+        "A zaj interferenciaként jelenik meg. Amíg a terem nyugodt, a távcső új észleléseket fog; ha túl hangos lesz, megvárja, míg kitisztul a jel.",
+      "start.explainFlee":
+        "A zaj interferenciaként jelenik meg. Ha a terem túl hangos lesz, az észlelések statikus zajjá esnek szét és elvesznek; amíg csend van, újabbak kerülnek a látótérbe.",
+      "controls.animals": "Észlelések",
+      "loud.flee.label": "Az észlelések elhalványulnak",
+      "loud.flee.hint":
+        "Minden megdermed, és öt másodpercenként néhány elhalványul a statikus zajban, míg csend nem lesz",
+      "loud.pause.hint": "Minden mozdulatlan, és új jel nem érkezik",
+      "settings.arrival": "Milyen sűrűn érkeznek az új észlelések",
+      "settings.aboutEvery": "Körülbelül egy észlelés",
+      "settings.summon": "Minden észlelés behozása",
+      "rate.hint": "körülbelül egy észlelés {minutes} percenként",
+      "settings.showCounter": "Számolja az érkező észleléseket",
+      "counter.label": "Eddigi észlelések: {count}",
+      "meter.paused": "Szünetel — túl sok interferencia",
+      "meter.arriving": "Jelek érkeznek",
+      "meter.goal":
+        "Új észlelések akkor érkeznek, míg a terem a vonaltól balra marad ({goal}%)",
+      "collection.title": "Észlelések",
+      "collection.spotted": "{class}: {total} észlelésből {seen} megfigyelve",
+      "collection.notSeen": "Még nincs megfigyelve",
+      "collection.seen": "Megfigyelve: {count}×",
+      "chance.common.label": "A gyakori észlelések esélye",
+      "chance.uncommon.label": "A kevésbé gyakori észlelések esélye",
+      "chance.rare.label": "A ritka észlelések esélye",
+      "blocked.title": "A távcsőnek hallania kell a termet",
+      "notes.ink.dark": "Fehér",
+    },
+  },
+} satisfies Language;
+
 const languages: Record<LanguageCode, Language> = {
   en: { ...en, scenes: enScenes },
   es,
   fr,
+  hu,
 };
 const STORAGE_KEY = "class-noise-level:language";
 
